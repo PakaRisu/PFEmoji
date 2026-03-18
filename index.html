@@ -344,6 +344,7 @@
         let attempts = 0;
         let allAnswers = [];
         let guessHistory = [];
+        let playedEnigmes = []; // Énigmes déjà jouées dans cette session
 
         function normalize(str) {
             return str.trim().toLowerCase()
@@ -387,10 +388,29 @@
                 return;
             }
             
+            // Réinitialiser si toutes les énigmes ont été jouées
+            if (playedEnigmes.length >= enigmes.length) {
+                playedEnigmes = [];
+                alert("🎉 Vous avez terminé toutes les énigmes ! On recommence !");
+            }
+            
+            // Filtrer les énigmes non jouées
+            const availableEnigmes = enigmes.filter(e => 
+                !playedEnigmes.some(played => played.reponse === e.reponse)
+            );
+            
+            if (availableEnigmes.length === 0) {
+                playedEnigmes = [];
+                return newEnigme();
+            }
+            
             document.body.classList.remove('victory');
             document.getElementById('victoryMessage').classList.remove('show');
             
-            currentEnigme = enigmes[Math.floor(Math.random() * enigmes.length)];
+            // Choisir une énigme non jouée
+            currentEnigme = availableEnigmes[Math.floor(Math.random() * availableEnigmes.length)];
+            playedEnigmes.push(currentEnigme);
+            
             revealed = 1;
             attempts = 0;
             guessHistory = [];
@@ -475,7 +495,11 @@
                 return;
             }
             
-            const matches = allAnswers.filter(ans => normalize(ans).startsWith(typed));
+            // Filtrer les suggestions : exclure les noms déjà testés
+            const matches = allAnswers.filter(ans => 
+                normalize(ans).startsWith(typed) && 
+                !guessHistory.includes(ans)
+            );
             
             if (matches.length === 0) {
                 hideSuggestions();

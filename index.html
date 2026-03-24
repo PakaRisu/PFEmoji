@@ -77,6 +77,27 @@
             font-weight: 500;
         }
 
+        .score-display {
+            text-align: center;
+            color: #667eea;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 10px;
+        }
+
+        .score-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 18px;
+            margin-left: 10px;
+        }
+
         .input-container {
             position: relative;
             margin-bottom: 15px;
@@ -345,6 +366,50 @@
         let allAnswers = [];
         let guessHistory = [];
         let playedEnigmes = []; // Énigmes déjà jouées dans cette session
+        let totalScore = 0; // Score total de la session
+        
+        // Messages dynamiques pour le placeholder
+        const placeholderMessages = [
+            "C'est évidemment le PFE de...",
+            "Ah, plutôt le PFE de...",
+            "Alors peut-être celui de...",
+            "Ah non mince, bon bah c'est...",
+            "Hmm... Le PFE de...",
+            "Attends, c'est...",
+            "Ça doit être...",
+            "Peut-être bien...",
+            "Ça doit être...",
+            "Evidemment parce que c'est le PFE de ...",
+            "Non là tu fais aucun effort mon reuf..."
+        ];
+
+        function updatePlaceholder() {
+            const input = document.getElementById('answerInput');
+            if (attempts >= 14) {
+                // À partir du 15ème essai
+                input.placeholder = placeholderMessages[14];
+            } else if (attempts < placeholderMessages.length - 1) {
+                input.placeholder = placeholderMessages[attempts];
+            } else {
+                input.placeholder = placeholderMessages[Math.min(attempts, placeholderMessages.length - 2)];
+            }
+        }
+
+        function calculateScore(attemptsUsed, totalEmojis) {
+            // Si trouvé en 1 essai : 100 + (nombre d'emojis * 50)
+            if (attemptsUsed === 1) {
+                return 100 + (totalEmojis * 50);
+            }
+            
+            // Sinon : score de base 100, -20 par essai supplémentaire (minimum 0)
+            const baseScore = 100;
+            const penalty = (attemptsUsed - 1) * 20;
+            return Math.max(0, baseScore - penalty);
+        }
+
+        function updateScoreDisplay() {
+            document.getElementById('scoreValue').textContent = totalScore;
+        }
 
         function normalize(str) {
             return str.trim().toLowerCase()
@@ -415,6 +480,7 @@
             attempts = 0;
             guessHistory = [];
             updateHistoryDisplay();
+            updatePlaceholder();
             document.getElementById('answerInput').value = '';
             updateDisplay();
             document.getElementById('answerInput').focus();
@@ -523,12 +589,12 @@
             document.getElementById('answerInput').focus();
         }
 
-        function showVictory() {
+        function showVictory(roundScore) {
             document.body.classList.add('victory');
             
             const victoryMsg = document.getElementById('victoryMessage');
             document.getElementById('victoryText').textContent = `Bravo ! C'était bien le PFE de ${currentEnigme.reponse}`;
-            document.getElementById('victoryAttempts').textContent = `Trouvé en seulement ${attempts} coup(s) !`;
+            document.getElementById('victoryAttempts').textContent = `Trouvé en ${attempts} coup(s) ! +${roundScore} points 🎯`;
             victoryMsg.classList.add('show');
         }
 

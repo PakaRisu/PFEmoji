@@ -41,6 +41,7 @@
             max-width: 600px;
             width: 100%;
             flex-shrink: 0;
+            margin-top: 60px;
         }
 
         h1 {
@@ -69,14 +70,7 @@
             font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', 'Android Emoji', sans-serif;
         }
 
-        .attempts {
-            text-align: center;
-            color: #6c757d;
-            font-size: 16px;
-            margin-bottom: 20px;
-            font-weight: 500;
-        }
-
+        /* ── Score display ─────────────────────────────────────── */
         .score-display {
             text-align: center;
             color: #667eea;
@@ -96,6 +90,56 @@
             border-radius: 20px;
             font-size: 18px;
             margin-left: 10px;
+        }
+
+        /* ── Mode toggle ───────────────────────────────────────── */
+        .mode-toggle {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .mode-toggle-inner {
+            display: flex;
+            background: #f0f0f5;
+            border-radius: 30px;
+            padding: 4px;
+            gap: 4px;
+        }
+
+        .mode-btn {
+            padding: 8px 22px;
+            border-radius: 25px;
+            border: none;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            background: transparent;
+            color: #6c757d;
+            flex: none;
+        }
+
+        .mode-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 3px 10px rgba(102, 126, 234, 0.4);
+        }
+
+        .mode-btn:hover:not(.active) {
+            background: #e0e0ea;
+            color: #2c3e50;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* ── Attempts ──────────────────────────────────────────── */
+        .attempts {
+            text-align: center;
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 20px;
+            font-weight: 500;
         }
 
         .input-container {
@@ -192,6 +236,7 @@
             color: white;
         }
 
+        /* ── History panel ─────────────────────────────────────── */
         .history-panel {
             background: white;
             border-radius: 20px;
@@ -229,14 +274,8 @@
         }
 
         @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-10px); }
+            to   { opacity: 1; transform: translateY(0); }
         }
 
         .history-empty {
@@ -247,6 +286,7 @@
             width: 100%;
         }
 
+        /* ── Victory banner ────────────────────────────────────── */
         .victory-message {
             display: none;
             position: fixed;
@@ -279,16 +319,11 @@
         }
 
         @keyframes victorySlideDown {
-            0% {
-                transform: translateY(-100%);
-                opacity: 0;
-            }
-            100% {
-                transform: translateY(0);
-                opacity: 1;
-            }
+            0%   { transform: translateY(-100%); opacity: 0; }
+            100% { transform: translateY(0);     opacity: 1; }
         }
 
+        /* ── Nav ───────────────────────────────────────────────── */
         .loading {
             text-align: center;
             color: white;
@@ -319,9 +354,7 @@
             transition: all 0.3s;
         }
 
-        .nav-bar a:hover {
-            background: #f8f9fa;
-        }
+        .nav-bar a:hover { background: #f8f9fa; }
 
         .nav-bar a.active {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -329,21 +362,10 @@
         }
 
         @media (max-width: 600px) {
-            .container {
-                padding: 20px;
-            }
-
-            h1 {
-                font-size: 1.5em;
-            }
-
-            .emoji-display span {
-                font-size: 45px;
-            }
-
-            .history-panel {
-                padding: 20px;
-            }
+            .container { padding: 20px; }
+            h1 { font-size: 1.5em; }
+            .emoji-display span { font-size: 45px; }
+            .history-panel { padding: 20px; }
         }
     </style>
 </head>
@@ -357,27 +379,43 @@
 
     <div class="container" style="display: none;" id="gameContainer">
         <h1>PFEmoji</h1>
-        
+
+        <!-- ① Mode toggle -->
+        <div class="mode-toggle">
+            <div class="mode-toggle-inner">
+                <button class="mode-btn active" id="btnComplet" onclick="setMode('complet')">🗂 Complet (48)</button>
+                <button class="mode-btn"         id="btnRapide" onclick="setMode('rapide')">⚡ Rapide (10)</button>
+            </div>
+        </div>
+
         <div class="emoji-display" id="emojiDisplay">
             <span>❓</span>
         </div>
-        
+
+        <!-- ② Score display (manquait dans le HTML original) -->
+        <div class="score-display" id="scoreDisplay">
+            Score : <span class="score-badge" id="scoreValue">0</span>
+            <span style="margin-left: 20px; font-size: 16px; color: #6c757d;">
+                Énigmes résolues : <span id="resolvedCount">0</span>/<span id="totalCount">0</span>
+            </span>
+        </div>
+
         <div class="attempts" id="attemptsCounter">Essais : 0</div>
-        
+
         <div class="input-container">
-            <input 
-                type="text" 
-                id="answerInput" 
+            <input
+                type="text"
+                id="answerInput"
                 placeholder="C'est évidemment le PFE de ..."
                 autocomplete="off"
             >
             <div class="suggestions" id="suggestionsBox"></div>
         </div>
-        
+
         <div class="button-container">
             <button class="btn-submit" onclick="checkAnswer()">Valider</button>
         </div>
-        
+
         <div class="secondary-buttons">
             <button class="btn-new" onclick="newEnigme()">Un autre !</button>
         </div>
@@ -397,16 +435,25 @@
     </div>
 
     <script>
-        let enigmes = [];
+        /* ───────────────────────────────────────────────────────
+           State
+        ─────────────────────────────────────────────────────── */
+        let enigmes      = [];   // toutes les énigmes chargées
+        let activePool   = [];   // pool actif selon le mode (complet = toutes, rapide = 10 aléatoires)
         let currentEnigme = null;
-        let revealed = 0;
-        let attempts = 0;
-        let allAnswers = [];
+        let revealed     = 0;
+        let attempts     = 0;
+        let allAnswers   = [];
         let guessHistory = [];
-        let playedEnigmes = []; // Énigmes déjà jouées dans cette session
-        let totalScore = 0; // Score total de la session
-        
-        // Messages dynamiques pour le placeholder
+        let playedEnigmes = [];
+        let totalScore   = 0;
+        let currentMode  = 'complet'; // 'complet' | 'rapide'
+
+        const QUICK_COUNT = 10;
+
+        /* ───────────────────────────────────────────────────────
+           Placeholders
+        ─────────────────────────────────────────────────────── */
         const placeholderMessages = [
             "C'est évidemment le PFE de...",
             "Ah, plutôt le PFE de...",
@@ -427,105 +474,123 @@
 
         function updatePlaceholder() {
             const input = document.getElementById('answerInput');
-            if (attempts >= 14) {
-                // À partir du 15ème essai
-                input.placeholder = placeholderMessages[14];
-            } else if (attempts < placeholderMessages.length - 1) {
-                input.placeholder = placeholderMessages[attempts];
-            } else {
-                input.placeholder = placeholderMessages[Math.min(attempts, placeholderMessages.length - 2)];
-            }
+            const idx = attempts >= 14 ? 14 : Math.min(attempts, placeholderMessages.length - 2);
+            input.placeholder = placeholderMessages[idx];
         }
 
+        /* ───────────────────────────────────────────────────────
+           Score
+        ─────────────────────────────────────────────────────── */
         function calculateScore(attemptsUsed, totalEmojis) {
-            // Si trouvé en 1 essai : 100 + (nombre d'emojis * 50)
-            if (attemptsUsed === 1) {
-                return 100 + (totalEmojis * 50);
-            }
-            
-            // Sinon : score de base 100, -20 par essai supplémentaire (minimum 0)
-            const baseScore = 100;
-            const penalty = (attemptsUsed - 1) * 20;
-            return Math.max(0, baseScore - penalty);
+            if (attemptsUsed === 1) return 100 + (totalEmojis * 50);
+            return Math.max(0, 100 - (attemptsUsed - 1) * 20);
         }
 
         function updateScoreDisplay() {
-            document.getElementById('scoreValue').textContent = totalScore;
+            document.getElementById('scoreValue').textContent     = totalScore;
+            // resolvedCount = énigmes terminées dans ce tour (playedEnigmes inclut la courante)
+            const resolved = Math.max(0, playedEnigmes.length - 1);
+            document.getElementById('resolvedCount').textContent  = resolved;
+            document.getElementById('totalCount').textContent     = activePool.length;
         }
 
+        /* ───────────────────────────────────────────────────────
+           Helpers
+        ─────────────────────────────────────────────────────── */
         function normalize(str) {
             return str.trim().toLowerCase()
                 .normalize("NFD")
                 .replace(/[\u0300-\u036f]/g, "");
         }
 
-        // Charger les énigmes depuis l'API
+        function shuffle(arr) {
+            const a = [...arr];
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
+
+        /* ───────────────────────────────────────────────────────
+           Mode toggle
+        ─────────────────────────────────────────────────────── */
+        function setMode(mode) {
+            if (mode === currentMode) return;
+            currentMode = mode;
+
+            document.getElementById('btnComplet').classList.toggle('active', mode === 'complet');
+            document.getElementById('btnRapide').classList.toggle('active', mode === 'rapide');
+
+            // Rebuild pool and restart session
+            startSession();
+        }
+
+        function buildPool() {
+            if (currentMode === 'rapide') {
+                return shuffle(enigmes).slice(0, QUICK_COUNT);
+            }
+            return [...enigmes];
+        }
+
+        /* ───────────────────────────────────────────────────────
+           Session / game init
+        ─────────────────────────────────────────────────────── */
+        function startSession() {
+            activePool    = buildPool();
+            playedEnigmes = [];
+            totalScore    = 0;
+            updateScoreDisplay();
+            newEnigme();
+        }
+
         async function loadEnigmes() {
             try {
                 const response = await fetch('/api/enigmes');
-                if (!response.ok) {
-                    throw new Error('Erreur de chargement');
-                }
-                enigmes = await response.json();
+                if (!response.ok) throw new Error('Erreur de chargement');
+                enigmes    = await response.json();
                 allAnswers = enigmes.map(e => e.reponse);
-                
-                // Masquer le loading, afficher le jeu
+
                 document.getElementById('loading').style.display = 'none';
                 document.getElementById('gameContainer').style.display = 'block';
                 document.getElementById('historyPanel').style.display = 'block';
-                
-                initGame();
+
+                startSession();
             } catch (error) {
                 console.error('Erreur:', error);
                 document.getElementById('loading').textContent = '⚠️ Erreur de chargement des énigmes';
             }
         }
 
-        function initGame() {
-            if (enigmes.length === 0) {
-                alert("⚠️ Aucune énigme trouvée !");
-                return;
-            }
-            newEnigme();
-        }
-
         function newEnigme() {
-            if (enigmes.length === 0) {
-                alert("Aucune énigme disponible");
+            if (activePool.length === 0) return;
+
+            // All enigmas in pool played → show final score and restart session
+            if (playedEnigmes.length >= activePool.length) {
+                const finalScore = totalScore;
+                const label = currentMode === 'rapide'
+                    ? `Mode Rapide (${QUICK_COUNT} énigmes)`
+                    : `Mode Complet (${enigmes.length} énigmes)`;
+                alert(`🎉 Vous avez terminé toutes les énigmes !\n${label}\n\nScore final : ${finalScore} points\n\nOn recommence !`);
+                startSession();
                 return;
             }
-            
-            // Réinitialiser si toutes les énigmes ont été jouées
-            if (playedEnigmes.length >= enigmes.length) {
-                const finalScore = totalScore;
-                playedEnigmes = [];
-                totalScore = 0;
-                updateScoreDisplay();
-                alert(`🎉 Vous avez terminé toutes les énigmes !\n\nScore final : ${finalScore} points\n\nOn recommence à zéro !`);
-            }
-            
-            // Filtrer les énigmes non jouées
-            const availableEnigmes = enigmes.filter(e => 
-                !playedEnigmes.some(played => played.reponse === e.reponse)
-            );
-            
-            if (availableEnigmes.length === 0) {
-                playedEnigmes = [];
-                totalScore = 0;
-                updateScoreDisplay();
-                return newEnigme();
-            }
-            
+
             document.body.classList.remove('victory');
             document.getElementById('victoryMessage').classList.remove('show');
-            
-            // Choisir une énigme non jouée
-            currentEnigme = availableEnigmes[Math.floor(Math.random() * availableEnigmes.length)];
+
+            // Pick an unplayed enigma from the active pool
+            const available = activePool.filter(e =>
+                !playedEnigmes.some(p => p.reponse === e.reponse)
+            );
+
+            currentEnigme = available[Math.floor(Math.random() * available.length)];
             playedEnigmes.push(currentEnigme);
-            
-            revealed = 1;
-            attempts = 0;
+
+            revealed     = 1;
+            attempts     = 0;
             guessHistory = [];
+
             updateHistoryDisplay();
             updatePlaceholder();
             updateScoreDisplay();
@@ -535,18 +600,20 @@
             hideSuggestions();
         }
 
+        /* ───────────────────────────────────────────────────────
+           Display helpers
+        ─────────────────────────────────────────────────────── */
         function updateDisplay() {
             const display = document.getElementById('emojiDisplay');
-            const emojis = currentEnigme.emojis;
-            const shown = emojis.slice(0, revealed).map(e => `<span>${e}</span>`).join('');
-            const hidden = Array(emojis.length - revealed).fill('<span>❓</span>').join('');
+            const emojis  = currentEnigme.emojis;
+            const shown   = emojis.slice(0, revealed).map(e => `<span>${e}</span>`).join('');
+            const hidden  = Array(emojis.length - revealed).fill('<span>❓</span>').join('');
             display.innerHTML = shown + hidden;
             document.getElementById('attemptsCounter').textContent = `Essais : ${attempts}`;
         }
 
         function updateHistoryDisplay() {
             const historyList = document.getElementById('historyList');
-            
             if (guessHistory.length === 0) {
                 historyList.innerHTML = '<div class="history-empty">Aucune tentative</div>';
             } else {
@@ -556,74 +623,74 @@
             }
         }
 
+        /* ───────────────────────────────────────────────────────
+           Answer checking
+        ─────────────────────────────────────────────────────── */
         function checkAnswer() {
             const input = document.getElementById('answerInput');
             let userAnswer = input.value.trim();
-            
             if (!userAnswer) return;
-            
-            const typed = normalize(userAnswer);
+
+            const typed   = normalize(userAnswer);
             const matches = allAnswers.filter(ans => normalize(ans).startsWith(typed));
-            
+
             if (matches.length === 1) {
-                userAnswer = matches[0];
-                input.value = userAnswer;
+                userAnswer    = matches[0];
+                input.value   = userAnswer;
             }
-            
+
             attempts++;
-            
+            updatePlaceholder();
+
             if (normalize(userAnswer) === normalize(currentEnigme.reponse)) {
+                // ✅ Correct
                 const display = document.getElementById('emojiDisplay');
                 display.innerHTML = currentEnigme.emojis.map(e => `<span>${e}</span>`).join('');
                 document.getElementById('attemptsCounter').textContent = `Essais : ${attempts}`;
-                
+
+                const roundScore = calculateScore(attempts, currentEnigme.emojis.length);
+                totalScore += roundScore;
+                updateScoreDisplay();
+
                 hideSuggestions();
-                showVictory();
+                showVictory(roundScore);   // ③ passage du score corrigé
             } else {
+                // ❌ Wrong
                 if (!guessHistory.includes(userAnswer)) {
                     guessHistory.push(userAnswer);
                     updateHistoryDisplay();
                 }
-                
+
                 document.body.classList.add('error');
-                setTimeout(() => {
-                    document.body.classList.remove('error');
-                }, 500);
-                
-                if (revealed < currentEnigme.emojis.length) {
-                    revealed++;
-                }
+                setTimeout(() => document.body.classList.remove('error'), 500);
+
+                if (revealed < currentEnigme.emojis.length) revealed++;
                 updateDisplay();
                 input.value = '';
                 hideSuggestions();
             }
         }
 
+        /* ───────────────────────────────────────────────────────
+           Suggestions
+        ─────────────────────────────────────────────────────── */
         function showSuggestions() {
-            const input = document.getElementById('answerInput');
-            const typed = normalize(input.value);
+            const input       = document.getElementById('answerInput');
+            const typed       = normalize(input.value);
             const suggestionsBox = document.getElementById('suggestionsBox');
-            
-            if (!typed) {
-                hideSuggestions();
-                return;
-            }
-            
-            // Filtrer les suggestions : exclure les noms déjà testés
-            const matches = allAnswers.filter(ans => 
-                normalize(ans).startsWith(typed) && 
-                !guessHistory.includes(ans)
+
+            if (!typed) { hideSuggestions(); return; }
+
+            const matches = allAnswers.filter(ans =>
+                normalize(ans).startsWith(typed) && !guessHistory.includes(ans)
             );
-            
-            if (matches.length === 0) {
-                hideSuggestions();
-                return;
-            }
-            
-            suggestionsBox.innerHTML = matches.map(ans => 
+
+            if (matches.length === 0) { hideSuggestions(); return; }
+
+            suggestionsBox.innerHTML = matches.map(ans =>
                 `<div class="suggestion-item" onclick="selectSuggestion('${ans.replace(/'/g, "\\'")}')">${ans}</div>`
             ).join('');
-            
+
             suggestionsBox.classList.add('show');
         }
 
@@ -637,29 +704,29 @@
             document.getElementById('answerInput').focus();
         }
 
+        /* ───────────────────────────────────────────────────────
+           Victory
+        ─────────────────────────────────────────────────────── */
         function showVictory(roundScore) {
             document.body.classList.add('victory');
-            
             const victoryMsg = document.getElementById('victoryMessage');
-            document.getElementById('victoryText').textContent = `Bravo ! C'était bien le PFE de ${currentEnigme.reponse}`;
+            document.getElementById('victoryText').textContent     = `Bravo ! C'était bien le PFE de ${currentEnigme.reponse}`;
             document.getElementById('victoryAttempts').textContent = `Trouvé en ${attempts} coup(s) ! +${roundScore} points 🎯`;
             victoryMsg.classList.add('show');
         }
 
+        /* ───────────────────────────────────────────────────────
+           Events
+        ─────────────────────────────────────────────────────── */
         document.getElementById('answerInput').addEventListener('input', showSuggestions);
         document.getElementById('answerInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                checkAnswer();
-            }
+            if (e.key === 'Enter') checkAnswer();
         });
-
         document.addEventListener('click', function(e) {
-            if (!e.target.closest('.input-container')) {
-                hideSuggestions();
-            }
+            if (!e.target.closest('.input-container')) hideSuggestions();
         });
 
-        // Charger les énigmes au démarrage
+        // Boot
         loadEnigmes();
     </script>
 </body>

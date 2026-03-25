@@ -413,16 +413,16 @@
             "Alors peut-être celui de...",
             "Ah non mince, bon bah c'est...",
             "Allez, cette fois c'est...",
-            "Bon, c'était le PFE...",
+            "Bon, bah...",
             "Hmm... Le PFE de...",
-            "Attends, c'est...",
-            "Je dirais que c'est...",
+            "Attends ! C'est...",
+            "Je dirais...",
             "Ça doit être...",
-            "Ca DOIT être...",
-            "C'est...",
-            "AH mais c'était le PFE de...",
-            "FF",
-            "Non là tu fais aucun effort mon reuf"
+            "Ça DOIT être...",
+            "Je pense c'est...",
+            "...",
+            "Ça pourrait être...",
+            "MDR MAIS PAS DU TOUT"
         ];
 
         function updatePlaceholder() {
@@ -497,8 +497,11 @@
             
             // Réinitialiser si toutes les énigmes ont été jouées
             if (playedEnigmes.length >= enigmes.length) {
+                const finalScore = totalScore;
                 playedEnigmes = [];
-                alert("🎉 Vous avez terminé toutes les énigmes ! On recommence !");
+                totalScore = 0;
+                updateScoreDisplay();
+                alert(`🎉 Vous avez terminé toutes les énigmes !\n\nScore final : ${finalScore} points\n\nOn recommence à zéro !`);
             }
             
             // Filtrer les énigmes non jouées
@@ -508,6 +511,8 @@
             
             if (availableEnigmes.length === 0) {
                 playedEnigmes = [];
+                totalScore = 0;
+                updateScoreDisplay();
                 return newEnigme();
             }
             
@@ -523,6 +528,7 @@
             guessHistory = [];
             updateHistoryDisplay();
             updatePlaceholder();
+            updateScoreDisplay();
             document.getElementById('answerInput').value = '';
             updateDisplay();
             document.getElementById('answerInput').focus();

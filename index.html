@@ -383,7 +383,7 @@
         <!-- ① Mode toggle -->
         <div class="mode-toggle">
             <div class="mode-toggle-inner">
-                <button class="mode-btn active" id="btnComplet" onclick="setMode('complet')">🗂 Complet (48)</button>
+                <button class="mode-btn active" id="btnComplet" onclick="setMode('complet')">🔀 Complet (48)</button>
                 <button class="mode-btn"         id="btnRapide" onclick="setMode('rapide')">⚡ Rapide (10)</button>
             </div>
         </div>
@@ -571,7 +571,7 @@
                 const label = currentMode === 'rapide'
                     ? `Mode Rapide (${QUICK_COUNT} énigmes)`
                     : `Mode Complet (${enigmes.length} énigmes)`;
-                alert(`🎉 Vous avez terminé toutes les énigmes !\n${label}\n\nScore final : ${finalScore} points\n\nOn recommence !`);
+                alert(`🎉 Vous avez terminé toutes les énigmes !\n${label}\n\nScore final : ${finalScore} points\n\nBravo l'ekip`);
                 startSession();
                 return;
             }

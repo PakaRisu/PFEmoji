@@ -217,8 +217,8 @@
         /* ── Map init ─────────────────────────────────────────── */
         function initMap() {
             map = L.map('map', {
-                center: [20, 10],
-                zoom: 2,
+                center: [46.5, 2.5],
+                zoom: 5,
                 minZoom: 1,
                 maxZoom: 10,
                 worldCopyJump: true
@@ -389,7 +389,7 @@
             document.getElementById('hintLabel').classList.remove('placed');
 
             // Reset map view
-            map.setView([20, 10], 2);
+            map.setView([46.5, 2.5], 5);
 
             // Pick enigma
             const available   = activePool.filter(e => !playedEnigmes.some(p => p.reponse === e.reponse));
@@ -438,8 +438,9 @@
                 `📏 ${formatDistance(distKm)} de la cible`;
             document.getElementById('resultScore').textContent =
                 `+${roundScore} points 🎯`;
-            document.getElementById('resultName').textContent =
-                `La bonne réponse était : ${currentEnigme.reponse}`;
+            document.getElementById('resultName').textContent = '';
+            document.getElementById('hintLabel').textContent = '';
+            document.getElementById('hintLabel').classList.remove('placed');
             resultCard.classList.add('show');
 
             updateScoreDisplay();

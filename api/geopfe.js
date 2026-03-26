@@ -22,7 +22,7 @@ const enigmes = [
   {"reponse":"Hugo","x":0,"y":48},
   {"reponse":"Juliette","x":0,"y":48},
   {"reponse":"Arthur","x":0,"y":48},
-  {"reponse":"Martial","x":5.971790,"y":43.104895},
+  {"reponse":"Martial","x":6.020167,"y":43.081437},
   {"reponse":"Alexis L.","x":-0.567723,"y":44.830454},
   {"reponse":"Anaïs","x":0,"y":48},
   {"reponse":"Nicolas","x":5.769377,"y":49.512950},

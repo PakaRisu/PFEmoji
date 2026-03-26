@@ -282,7 +282,7 @@
         /* ── Score formula (GeoGuessr-inspired) ───────────────── */
         // Max 5000 pts, decay with distance (km). ~5000 at 0km, ~0 at 5000km.
         function calculateScore(distanceKm) {
-            return Math.max(0, Math.round(5000 - distanceKm * 15));
+            return Math.max(0, Math.round(5000 - distanceKm * 20));
         }
 
         // Haversine distance in km

@@ -36,7 +36,7 @@ const enigmes = [
   {"reponse":"Mathilde R.","x":0,"y":48},
   {"reponse":"Jules","x":6.841489,"y":47.463010},
   {"reponse":"Antonin","x":3.812464,"y":43.622208},
-  {"reponse":"Cécile","x":0,"y":48},
+  {"reponse":"Cécile","x":7.3351600,"y":47.7503179},
   {"reponse":"Lou-Anne","x":1.596125,"y":50.248602},
   {"reponse":"Théana","x":22.936929,"y":39.359075},
   {"reponse":"Julian","x":0,"y":48},

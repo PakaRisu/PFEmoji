@@ -153,7 +153,7 @@
 <body>
     <div class="nav-bar">
         <a href="index.html">PFEmoji</a>
-        <a href="pfetudiants.html">PFEtudiants</a>
+        <a href="pfe-image.html">PFE-Image</a>
         <a href="geopfe.html" class="active">GeoPFE</a>
     </div>
 
@@ -218,9 +218,9 @@
         function initMap() {
             map = L.map('map', {
                 center: [46.5, 2.5],
-                zoom: 6,
+                zoom: 5,
                 minZoom: 1,
-                maxZoom: 16,
+                maxZoom: 10,
                 worldCopyJump: true
             });
 
@@ -282,7 +282,11 @@
         /* ── Score formula (GeoGuessr-inspired) ───────────────── */
         // Max 5000 pts, decay with distance (km). ~5000 at 0km, ~0 at 5000km.
         function calculateScore(distanceKm) {
-            return Math.max(0, Math.round(5000 - distanceKm * 20));
+            const d = distanceKm * 1000; // conversion en mètres
+            if (d <= 100) return 5000;
+            const adjustedDistance = d - 100;
+            const score = 5000 * Math.exp(-adjustedDistance / 150000);
+            return Math.max(0, Math.round(score));
         }
 
         // Haversine distance in km

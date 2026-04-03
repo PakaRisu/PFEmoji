@@ -87,12 +87,12 @@
             transition: filter 0.3s ease;
         }
         .image-display img.blurred { filter: blur(12px) brightness(0.85); }
-        .blur-hint {
-            position: absolute; bottom: 12px; right: 12px;
-            background: rgba(0,0,0,0.5); color: white;
-            font-size: 12px; padding: 4px 10px; border-radius: 20px;
-            pointer-events: none;
+        .blur-hint { display: none; } /* inutilisé, conservé pour compatibilité */
+        .hint-label {
+            text-align: center; font-size: 0.9em; color: #95a5a6;
+            margin-bottom: 10px; min-height: 1.2em; transition: color 0.3s;
         }
+        .hint-label.clear { color: #2ecc71; font-weight: 600; }
         .image-placeholder {
             font-size: 48px; color: #ced4da;
         }
@@ -194,11 +194,12 @@
             </span>
         </div>
 
+        <div class="hint-label" id="hintLabel">🔍 Image floue — chaque essai améliore la netteté</div>
+
         <!-- Image -->
         <div class="image-display" id="imageDisplay">
             <div class="image-placeholder" id="imagePlaceholder">🖼</div>
             <img id="enigmeImage" src="" alt="" style="display:none;" class="blurred">
-            <div class="blur-hint" id="blurHint" style="display:none;">🔍 Image floue — trouvez le nom !</div>
         </div>
 
         <div class="attempts" id="attemptsCounter">Essais : 0</div>

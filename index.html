@@ -482,9 +482,11 @@
         /* ───────────────────────────────────────────────────────
            Score
         ─────────────────────────────────────────────────────── */
+        // Essais 1-5 : 5000, 4000, 3000, 2000, 1000 (-1000/essai)
+        // Essais 6-10 : 800, 600, 400, 200, 0 (-200/essai)
         function calculateScore(attemptsUsed, totalEmojis) {
-            if (attemptsUsed === 1) return 100 + (totalEmojis * 50);
-            return Math.max(0, 100 - (attemptsUsed - 1) * 20);
+            if (attemptsUsed <= 5) return 5000 - (attemptsUsed - 1) * 1000;
+            return Math.max(0, 1000 - (attemptsUsed - 5) * 200);
         }
 
         function updateScoreDisplay() {
@@ -635,9 +637,10 @@
             const typed   = normalize(userAnswer);
             const matches = allAnswers.filter(ans => normalize(ans).startsWith(typed));
 
-            if (matches.length === 1) {
-                userAnswer    = matches[0];
-                input.value   = userAnswer;
+            // Auto-complète avec le premier match si la saisie est un préfixe
+            if (matches.length >= 1) {
+                userAnswer  = matches[0];
+                input.value = userAnswer;
             }
 
             attempts++;

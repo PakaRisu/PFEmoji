@@ -27,6 +27,7 @@ const enigmes = [
   {"reponse":"Alexis L.","image":"/images/AlexisL.JPG"},
   {"reponse":"Anaïs","image":"/images/Anais.JPG"},
   {"reponse":"Nicolas","image":"/images/Nicolas.JPG"},
+    {"reponse":"Manon","image":"/images/Manon.JPG"},
   {"reponse":"Lydie","image":"/images/Lydie.JPG"},
   {"reponse":"Yanis","image":"/images/Yanis.JPG"},
   {"reponse":"Justine","image":"/images/Justine.JPG"},

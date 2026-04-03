@@ -294,12 +294,17 @@
         /* ── Image blur : se défloutise à chaque mauvaise réponse ─ */
         const blurLevels = [12, 8, 5, 3, 1, 0]; // px de flou selon le nombre d'essais
         function updateImageBlur() {
-            const img = document.getElementById('enigmeImage');
+            const img  = document.getElementById('enigmeImage');
+            const hint = document.getElementById('hintLabel');
             const blur = blurLevels[Math.min(attempts, blurLevels.length - 1)];
-            img.style.filter = blur > 0
-                ? `blur(${blur}px) brightness(0.85)`
-                : 'none';
-            document.getElementById('blurHint').style.display = blur > 0 ? 'block' : 'none';
+            img.style.filter = blur > 0 ? `blur(${blur}px) brightness(0.85)` : 'none';
+            if (blur > 0) {
+                hint.textContent = '🔍 Image floue — chaque essai améliore la netteté';
+                hint.classList.remove('clear');
+            } else {
+                hint.textContent = '✅ Image révélée !';
+                hint.classList.add('clear');
+            }
         }
 
         /* ── Mode toggle ──────────────────────────────────────── */
@@ -398,18 +403,19 @@
 
             const typed   = normalize(ans);
             const matches = allAnswers.filter(a => normalize(a).startsWith(typed));
-            if (matches.length === 1) { ans = matches[0]; input.value = ans; }
+            if (matches.length >= 1) { ans = matches[0]; input.value = ans; }
 
             attempts++;
             updatePlaceholder();
-            updateImageBlur();
             document.getElementById('attemptsCounter').textContent = `Essais : ${attempts}`;
 
             if (normalize(ans) === normalize(currentEnigme.reponse)) {
-                // Révèle l'image nette
-                const img = document.getElementById('enigmeImage');
-                img.style.filter = 'none';
-                document.getElementById('blurHint').style.display = 'none';
+                // ✅ Correct — révèle l'image nette sans rappeler updateImageBlur
+                const img  = document.getElementById('enigmeImage');
+                const hint = document.getElementById('hintLabel');
+                img.style.filter    = 'none';
+                hint.textContent    = '✅ Image révélée !';
+                hint.classList.add('clear');
 
                 const score = calculateScore(attempts);
                 totalScore += score;
@@ -417,6 +423,8 @@
                 hideSuggestions();
                 showVictory(score);
             } else {
+                // ❌ Mauvaise réponse — réduit le flou d'un cran
+                updateImageBlur();
                 if (!guessHistory.includes(ans)) {
                     guessHistory.push(ans);
                     updateHistoryDisplay();

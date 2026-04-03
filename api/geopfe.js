@@ -2,7 +2,7 @@ const enigmes = [
    {"reponse":"Loïc A.","x":6.028213,"y":49.325439},
   {"reponse":"Emilie","x":-61.533906,"y":16.235543},
   {"reponse":"Inès","x":0,"y":0},
-  {"reponse":"Tiffaine","x":0,"y":0},
+  {"reponse":"Tiffaine","x":3.88454,"y":43.60406},
   {"reponse":"Maureen","x":7.32398,"y":48.55020},
   {"reponse":"Aude","x":7.770985,"y":48.577904},
   {"reponse":"Thomas","x":7.211040,"y":48.463652},

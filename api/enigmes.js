@@ -21,7 +21,7 @@ const enigmes = [
   {"reponse":"François","emojis":["🏥","👨‍🎨","🛏","🧠"]},
   {"reponse":"Cyrille","emojis":["🍂","🦁","🌼","☠"]},
   {"reponse":"Heloise","emojis":["🌊","👨‍🌾","🐟","👩‍🏫"]},
-  {"reponse":"Louise","emojis":["❓","❓","❓","❓"]},
+  {"reponse":"Louise","emojis":["🎟","🔲","🎭","🔦"]},
   {"reponse":"Hugo","emojis":["🥾","⛰","🏰","🥨"]},
   {"reponse":"Juliette","emojis":["🏙","👩‍🌾","🏫","🍽"]},
   {"reponse":"Arthur","emojis":["👨‍🎨","🏭","🏰","🇩🇪"]},

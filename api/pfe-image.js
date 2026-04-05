@@ -2,7 +2,6 @@ const enigmes = [
     // Format : { "reponse": "Prénom", "image": "/images/prenom.JPG" }
   {"reponse":"Loïc A.","image":"/images/LoicA.JPG"},
   {"reponse":"Emilie","image":"/images/Emilie.JPG"},
-  {"reponse":"Inès","image":"/images/Ines.JPG"},
   {"reponse":"Tiffaine","image":"/images/Tiffaine.JPG"},
   {"reponse":"Maureen","image":"/images/Maureen.JPG"},
   {"reponse":"Aude","image":"/images/Aude.JPG"},
@@ -46,8 +45,7 @@ const enigmes = [
   {"reponse":"Loïc S.","image":"/images/LoicS.JPG"},
   {"reponse":"Blanche","image":"/images/Blanche.JPG"},
   {"reponse":"Ambre","image":"/images/Ambre.JPG"},
-  {"reponse":"Léa","image":"/images/Lea.JPG"},
-  {"reponse":"Eli.e","image":"/images/Elie.JPG"}
+  {"reponse":"Léa","image":"/images/Lea.JPG"}
 ];
 
 export default function handler(req, res) {

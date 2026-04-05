@@ -4,7 +4,6 @@
 const enigmes = [
   {"reponse":"Loïc A.","emojis":["⛰","⛏","🏉","🌳"]},
   {"reponse":"Emilie","emojis":["🏝","⚓","🌷","📚"]},
-  {"reponse":"Inès","emojis":["❓","❓","❓","❓"]},
   {"reponse":"Tiffaine","emojis":["⚡","🌲","🏃‍","🚸"]},
   {"reponse":"Maureen","emojis":["🥨","🏡","♿","🏞"]},
   {"reponse":"Aude","emojis":["🛒","🥨","🌡","🤝"]},
@@ -48,8 +47,7 @@ const enigmes = [
   {"reponse":"Loïc S.","emojis":["🏔","🏢","⛷","🌄"]},
   {"reponse":"Blanche","emojis":["💧","🎓","🏞","🌿"]},
   {"reponse":"Ambre","emojis":["🏭","🏔","🚠","🏗"]},
-  {"reponse":"Léa","emojis":["📚","📽","💃","🎶"]},
-  {"reponse":"Eli.e","emojis":["❓","❓","❓","❓"]}
+  {"reponse":"Léa","emojis":["📚","📽","💃","🎶"]}
 ];
 
 export default function handler(req, res) {

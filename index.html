@@ -225,6 +225,11 @@
             color: white;
         }
 
+        /* ── Bouton valider caché après bonne réponse ──────────── */
+        .btn-submit.hidden {
+            display: none;
+        }
+
         .secondary-buttons {
             display: flex;
             gap: 10px;
@@ -361,6 +366,204 @@
             color: white;
         }
 
+        /* ── Leaderboard panel ─────────────────────────────────── */
+        .leaderboard-panel {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .leaderboard-panel h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            text-align: center;
+        }
+
+        .leaderboard-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .lb-tab {
+            padding: 6px 18px;
+            border-radius: 20px;
+            border: none;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            background: #f0f0f5;
+            color: #6c757d;
+            transition: all 0.2s;
+        }
+
+        .lb-tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .leaderboard-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .leaderboard-table th {
+            text-align: left;
+            padding: 8px 10px;
+            color: #95a5a6;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #f0f0f5;
+        }
+
+        .leaderboard-table td {
+            padding: 10px;
+            border-bottom: 1px solid #f8f9fa;
+            font-size: 14px;
+            color: #2c3e50;
+        }
+
+        .leaderboard-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .lb-rank {
+            font-weight: 700;
+            width: 30px;
+            color: #667eea;
+        }
+
+        .lb-rank-1 { color: #f39c12; }
+        .lb-rank-2 { color: #95a5a6; }
+        .lb-rank-3 { color: #cd7f32; }
+
+        .lb-score {
+            font-weight: 700;
+            color: #2ecc71;
+            text-align: right;
+        }
+
+        .lb-empty {
+            text-align: center;
+            color: #95a5a6;
+            font-style: italic;
+            padding: 20px;
+        }
+
+        .lb-date {
+            color: #bdc3c7;
+            font-size: 12px;
+        }
+
+        /* ── End-of-session modal ──────────────────────────────── */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 4000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal-box {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            animation: modalPop 0.3s ease;
+        }
+
+        @keyframes modalPop {
+            from { transform: scale(0.8); opacity: 0; }
+            to   { transform: scale(1);   opacity: 1; }
+        }
+
+        .modal-box h2 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .modal-box .final-score {
+            font-size: 3em;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 15px 0;
+        }
+
+        .modal-box p {
+            color: #6c757d;
+            margin-bottom: 20px;
+        }
+
+        .modal-box input[type="text"] {
+            width: 100%;
+            padding: 12px 15px;
+            font-size: 16px;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            outline: none;
+            margin-bottom: 15px;
+        }
+
+        .modal-box input[type="text"]:focus {
+            border-color: #667eea;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-save-score {
+            flex: 1;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.1s, box-shadow 0.2s;
+        }
+
+        .btn-save-score:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102,126,234,0.4);
+        }
+
+        .btn-skip-score {
+            padding: 12px 20px;
+            background: #f0f0f5;
+            color: #6c757d;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-skip-score:hover {
+            background: #e0e0ea;
+        }
+
         @media (max-width: 600px) {
             .container { padding: 20px; }
             h1 { font-size: 1.5em; }
@@ -381,7 +584,7 @@
     <div class="container" style="display: none;" id="gameContainer">
         <h1>PFEmoji</h1>
 
-        <!-- ① Mode toggle -->
+        <!-- Mode toggle -->
         <div class="mode-toggle">
             <div class="mode-toggle-inner">
                 <button class="mode-btn active" id="btnComplet" onclick="setMode('complet')">🗂 Complet (48)</button>
@@ -393,7 +596,6 @@
             <span>❓</span>
         </div>
 
-        <!-- ② Score display (manquait dans le HTML original) -->
         <div class="score-display" id="scoreDisplay">
             Score : <span class="score-badge" id="scoreValue">0</span>
             <span style="margin-left: 20px; font-size: 16px; color: #6c757d;">
@@ -414,7 +616,8 @@
         </div>
 
         <div class="button-container">
-            <button class="btn-submit" onclick="checkAnswer()">Valider</button>
+            <!-- ✅ FIX : id ajouté pour pouvoir le masquer -->
+            <button class="btn-submit" id="btnValider" onclick="checkAnswer()">Valider</button>
         </div>
 
         <div class="secondary-buttons">
@@ -429,28 +632,67 @@
         </div>
     </div>
 
+    <!-- Leaderboard -->
+    <div class="leaderboard-panel" style="display: none;" id="leaderboardPanel">
+        <h3>🏆 Classement</h3>
+        <div class="leaderboard-tabs">
+            <button class="lb-tab active" id="lbTabComplet" onclick="showLeaderboard('complet')">🗂 Complet</button>
+            <button class="lb-tab"        id="lbTabRapide"  onclick="showLeaderboard('rapide')">⚡ Rapide</button>
+        </div>
+        <table class="leaderboard-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nom</th>
+                    <th style="text-align:right">Score</th>
+                    <th style="text-align:right">Date</th>
+                </tr>
+            </thead>
+            <tbody id="leaderboardBody">
+                <tr><td colspan="4" class="lb-empty">Aucun score enregistré</td></tr>
+            </tbody>
+        </table>
+    </div>
+
     <div class="victory-message" id="victoryMessage">
         <h2>🎉</h2>
         <p id="victoryText"></p>
         <p id="victoryAttempts"></p>
     </div>
 
+    <!-- Modal fin de session -->
+    <div class="modal-overlay" id="endModal">
+        <div class="modal-box">
+            <h2>🎊 Session terminée !</h2>
+            <div class="final-score" id="modalScore">0</div>
+            <p id="modalMode"></p>
+            <p>Entre ton prénom pour sauvegarder ton score :</p>
+            <input type="text" id="playerNameInput" placeholder="Ton prénom..." maxlength="20" autocomplete="off">
+            <div class="modal-buttons">
+                <button class="btn-save-score" onclick="saveScore()">💾 Sauvegarder</button>
+                <button class="btn-skip-score" onclick="skipScore()">Passer</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         /* ───────────────────────────────────────────────────────
            State
         ─────────────────────────────────────────────────────── */
-        let enigmes      = [];   // toutes les énigmes chargées
-        let activePool   = [];   // pool actif selon le mode (complet = toutes, rapide = 10 aléatoires)
+        let enigmes       = [];
+        let activePool    = [];
         let currentEnigme = null;
-        let revealed     = 0;
-        let attempts     = 0;
-        let allAnswers   = [];
-        let guessHistory = [];
+        let revealed      = 0;
+        let attempts      = 0;
+        let allAnswers    = [];
+        let guessHistory  = [];
         let playedEnigmes = [];
-        let totalScore   = 0;
-        let currentMode  = 'complet'; // 'complet' | 'rapide'
+        let totalScore    = 0;
+        let currentMode   = 'complet';
+        let answered      = false;   // ✅ FIX : empêche la double validation
 
         const QUICK_COUNT = 10;
+        const LS_KEY      = 'pfemoji_leaderboard';
 
         /* ───────────────────────────────────────────────────────
            Placeholders
@@ -482,19 +724,16 @@
         /* ───────────────────────────────────────────────────────
            Score
         ─────────────────────────────────────────────────────── */
-        // Essais 1-5 : 5000, 4000, 3000, 2000, 1000 (-1000/essai)
-        // Essais 6-10 : 800, 600, 400, 200, 0 (-200/essai)
-        function calculateScore(attemptsUsed, totalEmojis) {
+        function calculateScore(attemptsUsed) {
             if (attemptsUsed <= 5) return 5000 - (attemptsUsed - 1) * 1000;
             return Math.max(0, 1000 - (attemptsUsed - 5) * 200);
         }
 
         function updateScoreDisplay() {
-            document.getElementById('scoreValue').textContent     = totalScore;
-            // resolvedCount = énigmes terminées dans ce tour (playedEnigmes inclut la courante)
+            document.getElementById('scoreValue').textContent    = totalScore;
             const resolved = Math.max(0, playedEnigmes.length - 1);
-            document.getElementById('resolvedCount').textContent  = resolved;
-            document.getElementById('totalCount').textContent     = activePool.length;
+            document.getElementById('resolvedCount').textContent = resolved;
+            document.getElementById('totalCount').textContent    = activePool.length;
         }
 
         /* ───────────────────────────────────────────────────────
@@ -521,18 +760,13 @@
         function setMode(mode) {
             if (mode === currentMode) return;
             currentMode = mode;
-
             document.getElementById('btnComplet').classList.toggle('active', mode === 'complet');
             document.getElementById('btnRapide').classList.toggle('active', mode === 'rapide');
-
-            // Rebuild pool and restart session
             startSession();
         }
 
         function buildPool() {
-            if (currentMode === 'rapide') {
-                return shuffle(enigmes).slice(0, QUICK_COUNT);
-            }
+            if (currentMode === 'rapide') return shuffle(enigmes).slice(0, QUICK_COUNT);
             return [...enigmes];
         }
 
@@ -554,10 +788,12 @@
                 enigmes    = await response.json();
                 allAnswers = enigmes.map(e => e.reponse);
 
-                document.getElementById('loading').style.display = 'none';
+                document.getElementById('loading').style.display      = 'none';
                 document.getElementById('gameContainer').style.display = 'block';
-                document.getElementById('historyPanel').style.display = 'block';
+                document.getElementById('historyPanel').style.display  = 'block';
+                document.getElementById('leaderboardPanel').style.display = 'block';
 
+                renderLeaderboard('complet');
                 startSession();
             } catch (error) {
                 console.error('Erreur:', error);
@@ -568,21 +804,20 @@
         function newEnigme() {
             if (activePool.length === 0) return;
 
-            // All enigmas in pool played → show final score and restart session
+            // Toutes les énigmes du pool jouées → fin de session
             if (playedEnigmes.length >= activePool.length) {
-                const finalScore = totalScore;
-                const label = currentMode === 'rapide'
-                    ? `Mode Rapide (${QUICK_COUNT} énigmes)`
-                    : `Mode Complet (${enigmes.length} énigmes)`;
-                alert(`🎉 Vous avez terminé toutes les énigmes !\n${label}\n\nScore final : ${finalScore} points\n\nOn recommence !`);
-                startSession();
+                showEndModal();
                 return;
             }
 
             document.body.classList.remove('victory');
             document.getElementById('victoryMessage').classList.remove('show');
 
-            // Pick an unplayed enigma from the active pool
+            // ✅ FIX : réafficher le bouton Valider et reset le flag
+            answered = false;
+            document.getElementById('btnValider').classList.remove('hidden');
+            document.getElementById('answerInput').disabled = false;
+
             const available = activePool.filter(e =>
                 !playedEnigmes.some(p => p.reponse === e.reponse)
             );
@@ -630,6 +865,9 @@
            Answer checking
         ─────────────────────────────────────────────────────── */
         function checkAnswer() {
+            // ✅ FIX : bloquer si déjà répondu correctement
+            if (answered) return;
+
             const input = document.getElementById('answerInput');
             let userAnswer = input.value.trim();
             if (!userAnswer) return;
@@ -637,7 +875,6 @@
             const typed   = normalize(userAnswer);
             const matches = allAnswers.filter(ans => normalize(ans).startsWith(typed));
 
-            // Auto-complète avec le premier match si la saisie est un préfixe
             if (matches.length >= 1) {
                 userAnswer  = matches[0];
                 input.value = userAnswer;
@@ -648,16 +885,22 @@
 
             if (normalize(userAnswer) === normalize(currentEnigme.reponse)) {
                 // ✅ Correct
+                answered = true;   // ✅ FIX : marquer comme répondu
+
                 const display = document.getElementById('emojiDisplay');
                 display.innerHTML = currentEnigme.emojis.map(e => `<span>${e}</span>`).join('');
                 document.getElementById('attemptsCounter').textContent = `Essais : ${attempts}`;
 
-                const roundScore = calculateScore(attempts, currentEnigme.emojis.length);
+                const roundScore = calculateScore(attempts);
                 totalScore += roundScore;
                 updateScoreDisplay();
 
+                // ✅ FIX : cacher le bouton Valider et désactiver l'input
+                document.getElementById('btnValider').classList.add('hidden');
+                document.getElementById('answerInput').disabled = true;
+
                 hideSuggestions();
-                showVictory(roundScore);   // ③ passage du score corrigé
+                showVictory(roundScore);
             } else {
                 // ❌ Wrong
                 if (!guessHistory.includes(userAnswer)) {
@@ -679,8 +922,9 @@
            Suggestions
         ─────────────────────────────────────────────────────── */
         function showSuggestions() {
-            const input       = document.getElementById('answerInput');
-            const typed       = normalize(input.value);
+            if (answered) return;   // ✅ FIX : pas de suggestions après résolution
+            const input          = document.getElementById('answerInput');
+            const typed          = normalize(input.value);
             const suggestionsBox = document.getElementById('suggestionsBox');
 
             if (!typed) { hideSuggestions(); return; }
@@ -720,11 +964,109 @@
         }
 
         /* ───────────────────────────────────────────────────────
+           Leaderboard (localStorage)
+        ─────────────────────────────────────────────────────── */
+        function getLeaderboard() {
+            try {
+                return JSON.parse(localStorage.getItem(LS_KEY) || '[]');
+            } catch { return []; }
+        }
+
+        function saveToLeaderboard(name, score, mode) {
+            const lb = getLeaderboard();
+            lb.push({
+                name,
+                score,
+                mode,
+                date: new Date().toLocaleDateString('fr-FR', { day:'2-digit', month:'2-digit' })
+            });
+            // Garder les 50 meilleurs par mode
+            const filtered = lb
+                .sort((a, b) => b.score - a.score)
+                .slice(0, 50);
+            localStorage.setItem(LS_KEY, JSON.stringify(filtered));
+        }
+
+        function renderLeaderboard(mode) {
+            const lb   = getLeaderboard().filter(e => e.mode === mode);
+            const tbody = document.getElementById('leaderboardBody');
+
+            document.getElementById('lbTabComplet').classList.toggle('active', mode === 'complet');
+            document.getElementById('lbTabRapide').classList.toggle('active',  mode === 'rapide');
+
+            if (lb.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" class="lb-empty">Aucun score enregistré</td></tr>';
+                return;
+            }
+
+            const top = lb.sort((a,b) => b.score - a.score).slice(0, 10);
+            tbody.innerHTML = top.map((entry, i) => {
+                const rankClass = i < 3 ? `lb-rank lb-rank-${i+1}` : 'lb-rank';
+                const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i+1}`;
+                return `
+                    <tr>
+                        <td class="${rankClass}">${medal}</td>
+                        <td>${escapeHtml(entry.name)}</td>
+                        <td class="lb-score">${entry.score}</td>
+                        <td class="lb-date">${entry.date}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function showLeaderboard(mode) {
+            renderLeaderboard(mode);
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        }
+
+        /* ───────────────────────────────────────────────────────
+           End-of-session modal
+        ─────────────────────────────────────────────────────── */
+        function showEndModal() {
+            document.getElementById('modalScore').textContent = `${totalScore} pts`;
+            const label = currentMode === 'rapide'
+                ? `⚡ Mode Rapide — ${QUICK_COUNT} énigmes`
+                : `🗂 Mode Complet — ${enigmes.length} énigmes`;
+            document.getElementById('modalMode').textContent = label;
+            document.getElementById('playerNameInput').value = '';
+            document.getElementById('endModal').classList.add('show');
+            document.getElementById('playerNameInput').focus();
+        }
+
+        function saveScore() {
+            const name = document.getElementById('playerNameInput').value.trim();
+            if (!name) {
+                document.getElementById('playerNameInput').focus();
+                return;
+            }
+            saveToLeaderboard(name, totalScore, currentMode);
+            renderLeaderboard(currentMode);
+            // Mettre l'onglet sur le mode courant
+            showLeaderboard(currentMode);
+            closeModal();
+        }
+
+        function skipScore() {
+            closeModal();
+        }
+
+        function closeModal() {
+            document.getElementById('endModal').classList.remove('show');
+            startSession();
+        }
+
+        /* ───────────────────────────────────────────────────────
            Events
         ─────────────────────────────────────────────────────── */
         document.getElementById('answerInput').addEventListener('input', showSuggestions);
         document.getElementById('answerInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') checkAnswer();
+        });
+        document.getElementById('playerNameInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') saveScore();
         });
         document.addEventListener('click', function(e) {
             if (!e.target.closest('.input-container')) hideSuggestions();

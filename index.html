@@ -963,100 +963,36 @@
             victoryMsg.classList.add('show');
         }
 
-        /* ───────────────────────────────────────────────────────
-           Leaderboard (localStorage)
-        ─────────────────────────────────────────────────────── */
-        function getLeaderboard() {
-            try {
-                return JSON.parse(localStorage.getItem(LS_KEY) || '[]');
-            } catch { return []; }
-        }
+        const SUPABASE_URL = 'https://pyeuyaeatfwbjnsjxgcq.supabase.co';      // ton URL
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB5ZXV5YWVhdGZ3Ympuc2p4Z2NxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc2NTA1NDksImV4cCI6MjA5MzIyNjU0OX0.rNI2djL3-3-y-_nOd5Zl6I_cKl9aBlUhfZWF2Or1Tzg';                     // ta clé anon
 
-        function saveToLeaderboard(name, score, mode) {
-            const lb = getLeaderboard();
-            lb.push({
-                name,
-                score,
-                mode,
-                date: new Date().toLocaleDateString('fr-FR', { day:'2-digit', month:'2-digit' })
-            });
-            // Garder les 50 meilleurs par mode
-            const filtered = lb
-                .sort((a, b) => b.score - a.score)
-                .slice(0, 50);
-            localStorage.setItem(LS_KEY, JSON.stringify(filtered));
-        }
+async function fetchLeaderboard(silent = false) {
+    if (!silent) setLbStatus('Chargement...');
+    try {
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/leaderboard?select=*&order=score.desc&limit=200`, {
+            headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY }
+        });
+        lbCache = await res.json();
+        renderLeaderboard(lbActiveMode);
+        setLbStatus('');
+    } catch (err) {
+        setLbStatus('⚠️ Impossible de charger le classement');
+    }
+}
 
-        function renderLeaderboard(mode) {
-            const lb   = getLeaderboard().filter(e => e.mode === mode);
-            const tbody = document.getElementById('leaderboardBody');
-
-            document.getElementById('lbTabComplet').classList.toggle('active', mode === 'complet');
-            document.getElementById('lbTabRapide').classList.toggle('active',  mode === 'rapide');
-
-            if (lb.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="4" class="lb-empty">Aucun score enregistré</td></tr>';
-                return;
-            }
-
-            const top = lb.sort((a,b) => b.score - a.score).slice(0, 10);
-            tbody.innerHTML = top.map((entry, i) => {
-                const rankClass = i < 3 ? `lb-rank lb-rank-${i+1}` : 'lb-rank';
-                const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i+1}`;
-                return `
-                    <tr>
-                        <td class="${rankClass}">${medal}</td>
-                        <td>${escapeHtml(entry.name)}</td>
-                        <td class="lb-score">${entry.score}</td>
-                        <td class="lb-date">${entry.date}</td>
-                    </tr>
-                `;
-            }).join('');
-        }
-
-        function showLeaderboard(mode) {
-            renderLeaderboard(mode);
-        }
-
-        function escapeHtml(str) {
-            return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-        }
-
-        /* ───────────────────────────────────────────────────────
-           End-of-session modal
-        ─────────────────────────────────────────────────────── */
-        function showEndModal() {
-            document.getElementById('modalScore').textContent = `${totalScore} pts`;
-            const label = currentMode === 'rapide'
-                ? `⚡ Mode Rapide — ${QUICK_COUNT} énigmes`
-                : `🗂 Mode Complet — ${enigmes.length} énigmes`;
-            document.getElementById('modalMode').textContent = label;
-            document.getElementById('playerNameInput').value = '';
-            document.getElementById('endModal').classList.add('show');
-            document.getElementById('playerNameInput').focus();
-        }
-
-        function saveScore() {
-            const name = document.getElementById('playerNameInput').value.trim();
-            if (!name) {
-                document.getElementById('playerNameInput').focus();
-                return;
-            }
-            saveToLeaderboard(name, totalScore, currentMode);
-            renderLeaderboard(currentMode);
-            // Mettre l'onglet sur le mode courant
-            showLeaderboard(currentMode);
-            closeModal();
-        }
-
-        function skipScore() {
-            closeModal();
-        }
-
-        function closeModal() {
-            document.getElementById('endModal').classList.remove('show');
-            startSession();
-        }
+async function postScore(name, score, mode) {
+    const date = new Date().toLocaleDateString('fr-FR', { day:'2-digit', month:'2-digit', year:'2-digit' });
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/leaderboard`, {
+        method: 'POST',
+        headers: {
+            'apikey': SUPABASE_KEY,
+            'Authorization': 'Bearer ' + SUPABASE_KEY,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name, score, mode, date })
+    });
+    if (!res.ok) throw new Error('Erreur serveur');
+}
 
         /* ───────────────────────────────────────────────────────
            Events

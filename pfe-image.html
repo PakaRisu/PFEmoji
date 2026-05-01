@@ -11,159 +11,146 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            gap: 20px;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            padding: 20px; gap: 20px;
         }
         body.victory { background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%); transition: background 0.5s ease; }
         body.error   { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); transition: background 0.3s ease; }
 
-        /* ── Nav ────────────────────────────────────────────────── */
         .nav-bar {
             position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
             background: white; border-radius: 50px; padding: 10px 20px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.2); display: flex; gap: 10px; z-index: 9999;
         }
-        .nav-bar a {
-            text-decoration: none; color: #2c3e50; padding: 8px 20px;
-            border-radius: 25px; font-weight: 600; transition: all 0.3s; white-space: nowrap;
-        }
+        .nav-bar a { text-decoration: none; color: #2c3e50; padding: 8px 20px; border-radius: 25px; font-weight: 600; transition: all 0.3s; white-space: nowrap; }
         .nav-bar a:hover { background: #f8f9fa; }
         .nav-bar a.active { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
 
-        /* ── Container ──────────────────────────────────────────── */
         .container {
             background: white; border-radius: 20px; padding: 40px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3); max-width: 600px; width: 100%; margin-top: 60px;
         }
         h1 { text-align: center; color: #2c3e50; margin-bottom: 20px; font-size: 2em; }
 
-        /* ── Mode toggle ────────────────────────────────────────── */
         .mode-toggle { display: flex; justify-content: center; margin-bottom: 20px; }
-        .mode-toggle-inner {
-            display: flex; background: #f0f0f5; border-radius: 30px; padding: 4px; gap: 4px;
-        }
-        .mode-btn {
-            padding: 8px 22px; border-radius: 25px; border: none;
-            font-size: 14px; font-weight: 600; cursor: pointer;
-            transition: all 0.25s ease; background: transparent; color: #6c757d;
-        }
-        .mode-btn.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white; box-shadow: 0 3px 10px rgba(102,126,234,0.4);
-        }
+        .mode-toggle-inner { display: flex; background: #f0f0f5; border-radius: 30px; padding: 4px; gap: 4px; }
+        .mode-btn { padding: 8px 22px; border-radius: 25px; border: none; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.25s ease; background: transparent; color: #6c757d; }
+        .mode-btn.active { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; box-shadow: 0 3px 10px rgba(102,126,234,0.4); }
         .mode-btn:hover:not(.active) { background: #e0e0ea; color: #2c3e50; }
 
-        /* ── Score ──────────────────────────────────────────────── */
-        .score-display {
-            text-align: center; color: #667eea; font-size: 20px; font-weight: bold;
-            margin-bottom: 20px; padding: 10px;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 10px;
-        }
-        .score-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white; padding: 5px 15px; border-radius: 20px; font-size: 18px; margin-left: 10px;
-        }
+        .score-display { text-align: center; color: #667eea; font-size: 20px; font-weight: bold; margin-bottom: 20px; padding: 10px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 10px; }
+        .score-badge { display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 5px 15px; border-radius: 20px; font-size: 18px; margin-left: 10px; }
 
-        /* ── Image display ──────────────────────────────────────── */
         .image-display {
             background: #f8f9fa; border: 3px solid #e9ecef; border-radius: 15px;
             margin-bottom: 20px; overflow: hidden;
             display: flex; align-items: center; justify-content: center;
-            position: relative;
-            /* S'adapte à l'image naturelle, plafonné à 4:3 */
-            aspect-ratio: 4 / 3;
-            max-height: 380px;
+            aspect-ratio: 4/3; max-height: 380px;
         }
-        .image-display img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;  /* contain = pas de crop, image entière visible */
-            border-radius: 12px;
-            transition: filter 0.3s ease;
-        }
-        .image-display img.blurred { filter: blur(12px) brightness(0.85); }
-        .blur-hint { display: none; } /* inutilisé, conservé pour compatibilité */
-        .hint-label {
-            text-align: center; font-size: 0.9em; color: #95a5a6;
-            margin-bottom: 10px; min-height: 1.2em; transition: color 0.3s;
-        }
+        .image-display img { width: 100%; height: 100%; object-fit: contain; border-radius: 12px; transition: filter 0.3s ease; }
+        .image-placeholder { font-size: 48px; color: #ced4da; }
+        .hint-label { text-align: center; font-size: 0.9em; color: #95a5a6; margin-bottom: 10px; min-height: 1.2em; transition: color 0.3s; }
         .hint-label.clear { color: #2ecc71; font-weight: 600; }
-        .image-placeholder {
-            font-size: 48px; color: #ced4da;
-        }
 
-        /* ── Attempts ───────────────────────────────────────────── */
-        .attempts {
-            text-align: center; color: #6c757d; font-size: 16px;
-            margin-bottom: 20px; font-weight: 500;
-        }
+        .attempts { text-align: center; color: #6c757d; font-size: 16px; margin-bottom: 20px; font-weight: 500; }
 
-        /* ── Input ──────────────────────────────────────────────── */
         .input-container { position: relative; margin-bottom: 15px; }
-        input[type="text"] {
-            width: 100%; padding: 15px; font-size: 16px;
-            border: 2px solid #dee2e6; border-radius: 10px; outline: none; transition: border-color 0.3s;
-        }
+        input[type="text"] { width: 100%; padding: 15px; font-size: 16px; border: 2px solid #dee2e6; border-radius: 10px; outline: none; transition: border-color 0.3s; }
         input[type="text"]:focus { border-color: #667eea; }
 
-        .suggestions {
-            position: absolute; top: 100%; left: 0; right: 0; background: white;
-            border: 2px solid #dee2e6; border-top: none; border-radius: 0 0 10px 10px;
-            max-height: 200px; overflow-y: auto; z-index: 1000; display: none;
-        }
+        .suggestions { position: absolute; top: 100%; left: 0; right: 0; background: white; border: 2px solid #dee2e6; border-top: none; border-radius: 0 0 10px 10px; max-height: 200px; overflow-y: auto; z-index: 1000; display: none; }
         .suggestions.show { display: block; }
         .suggestion-item { padding: 12px 15px; cursor: pointer; transition: background-color 0.2s; }
         .suggestion-item:hover { background-color: #f8f9fa; }
+        .suggestion-item.exact { font-weight: 700; color: #667eea; }
 
-        /* ── Buttons ────────────────────────────────────────────── */
-        .button-container  { display: flex; gap: 10px; margin-bottom: 20px; }
+        .button-container { display: flex; gap: 10px; margin-bottom: 20px; }
         .secondary-buttons { display: flex; gap: 10px; justify-content: center; }
-        .btn-submit, .btn-new {
-            flex: 1; padding: 15px; font-size: 16px; font-weight: 600;
-            border: none; border-radius: 10px; cursor: pointer; transition: transform 0.1s, box-shadow 0.2s;
-        }
+        .btn-submit, .btn-new { flex: 1; padding: 15px; font-size: 16px; font-weight: 600; border: none; border-radius: 10px; cursor: pointer; transition: transform 0.1s, box-shadow 0.2s; }
         .btn-submit:hover, .btn-new:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
         .btn-submit { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
-        .btn-new    { background: #2ecc71; color: white; }
+        .btn-submit.hidden { display: none; }
+        .btn-new { background: #2ecc71; color: white; }
 
-        /* ── History ────────────────────────────────────────────── */
-        .history-panel {
-            background: white; border-radius: 20px; padding: 30px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3); max-width: 600px; width: 100%;
-            max-height: 300px; overflow-y: auto;
-        }
+        .history-panel { background: white; border-radius: 20px; padding: 30px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); max-width: 600px; width: 100%; max-height: 300px; overflow-y: auto; }
         .history-panel h3 { color: #2c3e50; margin-bottom: 20px; font-size: 1.2em; text-align: center; }
         .history-list { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
-        .history-item {
-            background: #f8f9fa; padding: 10px 15px; border-radius: 8px;
-            border-left: 4px solid #e74c3c; color: #2c3e50; font-size: 14px; animation: slideIn 0.3s ease;
-        }
-        @keyframes slideIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        .history-item { background: #f8f9fa; padding: 10px 15px; border-radius: 8px; border-left: 4px solid #e74c3c; color: #2c3e50; font-size: 14px; animation: slideIn 0.3s ease; }
+        @keyframes slideIn { from { opacity:0; transform:translateY(-10px); } to { opacity:1; transform:translateY(0); } }
         .history-empty { text-align: center; color: #95a5a6; font-style: italic; padding: 20px; width: 100%; }
 
-        /* ── Victory banner ─────────────────────────────────────── */
-        .victory-message {
-            display: none; position: fixed; top: 0; left: 0; right: 0; text-align: center;
-            color: white; z-index: 3000; padding: 30px 20px;
-            background: rgba(46,204,113,0.95); box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            animation: victorySlideDown 0.5s ease;
-        }
+        .victory-message { display: none; position: fixed; top: 0; left: 0; right: 0; text-align: center; color: white; z-index: 3000; padding: 30px 20px; background: rgba(46,204,113,0.95); box-shadow: 0 4px 20px rgba(0,0,0,0.3); animation: victorySlideDown 0.5s ease; }
         .victory-message.show { display: block; }
         .victory-message h2 { font-size: 3em; margin-bottom: 10px; text-shadow: 0 4px 8px rgba(0,0,0,0.3); }
         .victory-message p  { font-size: 1.3em; margin-bottom: 5px; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
-        @keyframes victorySlideDown { 0% { transform: translateY(-100%); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+        @keyframes victorySlideDown { 0% { transform:translateY(-100%); opacity:0; } 100% { transform:translateY(0); opacity:1; } }
 
         .loading { text-align: center; color: white; font-size: 1.5em; margin-top: 60px; }
 
-        @media (max-width: 600px) {
-            .container { padding: 20px; }
-            h1 { font-size: 1.5em; }
-        }
+        /* ── Leaderboard ───────────────────────────────────────── */
+        .leaderboard-panel { background: white; border-radius: 20px; padding: 30px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); max-width: 600px; width: 100%; }
+        .leaderboard-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; flex-wrap: wrap; gap: 10px; }
+        .leaderboard-header h3 { color: #2c3e50; font-size: 1.2em; }
+        .lb-refresh-btn { background: none; border: 2px solid #e9ecef; border-radius: 8px; padding: 5px 12px; cursor: pointer; font-size: 14px; color: #6c757d; transition: all 0.2s; }
+        .lb-refresh-btn:hover { border-color: #667eea; color: #667eea; }
+        .lb-refresh-btn.spinning { animation: spin 0.6s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .leaderboard-tabs { display: flex; justify-content: center; gap: 8px; margin-bottom: 15px; }
+        .lb-tab { padding: 6px 18px; border-radius: 20px; border: none; font-size: 13px; font-weight: 600; cursor: pointer; background: #f0f0f5; color: #6c757d; transition: all 0.2s; }
+        .lb-tab.active { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+
+        .lb-search-container { position: relative; margin-bottom: 15px; }
+        .lb-search-container input { width: 100%; padding: 10px 36px 10px 38px; font-size: 14px; border: 2px solid #dee2e6; border-radius: 10px; outline: none; transition: border-color 0.3s; }
+        .lb-search-container input:focus { border-color: #667eea; }
+        .lb-search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #adb5bd; font-size: 16px; pointer-events: none; }
+        .lb-clear-btn { display: none; position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: #adb5bd; font-size: 18px; line-height: 1; padding: 2px 4px; }
+        .lb-clear-btn.visible { display: block; }
+        .lb-clear-btn:hover { color: #667eea; }
+
+        .lb-player-card { display: none; background: linear-gradient(135deg, #667eea10 0%, #764ba215 100%); border: 2px solid #667eea40; border-radius: 12px; padding: 14px 16px; margin-bottom: 15px; animation: fadeIn 0.3s ease; }
+        .lb-player-card.show { display: block; }
+        @keyframes fadeIn { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:translateY(0); } }
+        .lb-player-card-name { font-size: 16px; font-weight: 700; color: #2c3e50; margin-bottom: 8px; }
+        .lb-player-stats { display: flex; flex-wrap: wrap; gap: 10px; }
+        .lb-stat-chip { background: white; border-radius: 20px; padding: 4px 12px; font-size: 13px; font-weight: 600; color: #667eea; border: 1px solid #667eea30; }
+        .lb-stat-chip.gold  { color: #f39c12; border-color: #f39c1230; }
+        .lb-stat-chip.green { color: #2ecc71; border-color: #2ecc7130; }
+
+        .leaderboard-table { width: 100%; border-collapse: collapse; }
+        .leaderboard-table th { text-align: left; padding: 8px 10px; color: #95a5a6; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid #f0f0f5; }
+        .leaderboard-table td { padding: 10px; border-bottom: 1px solid #f8f9fa; font-size: 14px; color: #2c3e50; }
+        .leaderboard-table tr:last-child td { border-bottom: none; }
+        .leaderboard-table tr.highlighted td { background: #667eea10; }
+        .lb-rank { font-weight: 700; width: 36px; color: #667eea; }
+        .lb-rank-1 { color: #f39c12; } .lb-rank-2 { color: #95a5a6; } .lb-rank-3 { color: #cd7f32; }
+        .lb-score { font-weight: 700; color: #2ecc71; text-align: right; }
+        .lb-date  { color: #bdc3c7; font-size: 12px; text-align: right; }
+        .lb-empty, .lb-no-match { text-align: center; color: #95a5a6; font-style: italic; padding: 20px; }
+        .lb-status { text-align: center; font-size: 13px; color: #95a5a6; padding: 4px; min-height: 20px; }
+
+        /* ── End modal ─────────────────────────────────────────── */
+        .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 4000; justify-content: center; align-items: center; }
+        .modal-overlay.show { display: flex; }
+        .modal-box { background: white; border-radius: 20px; padding: 40px; max-width: 420px; width: 90%; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.4); animation: modalPop 0.3s ease; }
+        @keyframes modalPop { from { transform:scale(0.8); opacity:0; } to { transform:scale(1); opacity:1; } }
+        .modal-box h2 { font-size: 2em; margin-bottom: 10px; }
+        .modal-box .final-score { font-size: 3em; font-weight: 700; background: linear-gradient(135deg,#667eea,#764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 15px 0; }
+        .modal-box p { color: #6c757d; margin-bottom: 20px; }
+        .modal-box input[type="text"] { width: 100%; padding: 12px 15px; font-size: 16px; border: 2px solid #dee2e6; border-radius: 10px; outline: none; margin-bottom: 10px; }
+        .modal-box input[type="text"]:focus { border-color: #667eea; }
+        .modal-save-status { font-size: 13px; min-height: 20px; margin-bottom: 10px; color: #6c757d; }
+        .modal-save-status.error   { color: #e74c3c; }
+        .modal-save-status.success { color: #2ecc71; }
+        .modal-buttons { display: flex; gap: 10px; }
+        .btn-save-score { flex: 1; padding: 12px; background: linear-gradient(135deg,#667eea 0%,#764ba2 100%); color: white; border: none; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; transition: transform 0.1s, box-shadow 0.2s; }
+        .btn-save-score:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(102,126,234,0.4); }
+        .btn-save-score:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+        .btn-skip-score { padding: 12px 20px; background: #f0f0f5; color: #6c757d; border: none; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; }
+        .btn-skip-score:hover { background: #e0e0ea; }
+
+        @media (max-width: 600px) { .container { padding: 20px; } h1 { font-size: 1.5em; } }
     </style>
 </head>
 <body>
@@ -175,60 +162,95 @@
 
     <div class="loading" id="loading">Chargement des énigmes...</div>
 
-    <div class="container" style="display:none;" id="gameContainer">
+    <div class="container" style="display:none" id="gameContainer">
         <h1>🖼 PFE-Image</h1>
-
-        <!-- Mode toggle -->
         <div class="mode-toggle">
             <div class="mode-toggle-inner">
                 <button class="mode-btn active" id="btnComplet" onclick="setMode('complet')">🗂 Complet</button>
                 <button class="mode-btn"         id="btnRapide"  onclick="setMode('rapide')">⚡ Rapide (10)</button>
             </div>
         </div>
-
-        <!-- Score -->
         <div class="score-display">
             Score : <span class="score-badge" id="scoreValue">0</span>
-            <span style="margin-left: 20px; font-size: 16px; color: #6c757d;">
+            <span style="margin-left:20px;font-size:16px;color:#6c757d">
                 Énigmes résolues : <span id="resolvedCount">0</span>/<span id="totalCount">0</span>
             </span>
         </div>
-
         <div class="hint-label" id="hintLabel">🔍 Image floue — chaque essai améliore la netteté</div>
-
-        <!-- Image -->
         <div class="image-display" id="imageDisplay">
             <div class="image-placeholder" id="imagePlaceholder">🖼</div>
-            <img id="enigmeImage" src="" alt="" style="display:none;" class="blurred">
+            <img id="enigmeImage" src="" alt="" style="display:none">
         </div>
-
         <div class="attempts" id="attemptsCounter">Essais : 0</div>
-
         <div class="input-container">
             <input type="text" id="answerInput" placeholder="C'est évidemment le PFE de..." autocomplete="off">
             <div class="suggestions" id="suggestionsBox"></div>
         </div>
         <div class="button-container">
-            <button class="btn-submit" onclick="checkAnswer()">Valider</button>
+            <button class="btn-submit" id="btnValider" onclick="checkAnswer()">Valider</button>
         </div>
         <div class="secondary-buttons">
             <button class="btn-new" onclick="newEnigme()">Un autre !</button>
         </div>
     </div>
 
-    <div class="history-panel" style="display:none;" id="historyPanel">
+    <div class="history-panel" style="display:none" id="historyPanel">
         <h3>Ce n'est pas le PFE de...</h3>
-        <div class="history-list" id="historyList">
-            <div class="history-empty">Aucune tentative</div>
+        <div class="history-list" id="historyList"><div class="history-empty">Aucune tentative</div></div>
+    </div>
+
+    <!-- Leaderboard -->
+    <div class="leaderboard-panel" style="display:none" id="leaderboardPanel">
+        <div class="leaderboard-header">
+            <h3>🏆 Classement</h3>
+            <button class="lb-refresh-btn" id="refreshBtn" onclick="refreshLeaderboard()">🔄 Actualiser</button>
         </div>
+        <div class="leaderboard-tabs">
+            <button class="lb-tab active" id="lbTabComplet" onclick="showLeaderboard('complet')">🗂 Complet</button>
+            <button class="lb-tab"        id="lbTabRapide"  onclick="showLeaderboard('rapide')">⚡ Rapide</button>
+        </div>
+        <div class="lb-search-container">
+            <span class="lb-search-icon">🔍</span>
+            <input type="text" id="lbSearch" placeholder="Chercher un joueur..." autocomplete="off" oninput="onSearchInput()">
+            <button class="lb-clear-btn" id="lbClearBtn" onclick="clearSearch()">×</button>
+        </div>
+        <div class="lb-player-card" id="playerCard"></div>
+        <div class="lb-status" id="lbStatus"></div>
+        <table class="leaderboard-table">
+            <thead><tr><th>#</th><th>Nom</th><th style="text-align:right">Score</th><th style="text-align:right">Date</th></tr></thead>
+            <tbody id="leaderboardBody"><tr><td colspan="4" class="lb-empty">Chargement...</td></tr></tbody>
+        </table>
     </div>
 
     <div class="victory-message" id="victoryMessage">
         <h2>🎉</h2><p id="victoryText"></p><p id="victoryAttempts"></p>
     </div>
 
+    <!-- End modal -->
+    <div class="modal-overlay" id="endModal">
+        <div class="modal-box">
+            <h2>🎊 Session terminée !</h2>
+            <div class="final-score" id="modalScore">0</div>
+            <p id="modalMode"></p>
+            <p>Entre ton prénom pour sauvegarder ton score :</p>
+            <input type="text" id="playerNameInput" placeholder="Ton prénom..." maxlength="20" autocomplete="off">
+            <div class="modal-save-status" id="modalSaveStatus"></div>
+            <div class="modal-buttons">
+                <button class="btn-save-score" id="btnSave" onclick="saveScore()">💾 Sauvegarder</button>
+                <button class="btn-skip-score" onclick="skipScore()">Passer</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        /* ── State ────────────────────────────────────────────── */
+        /* ── Supabase ──────────────────────────────────────────── */
+        const SUPABASE_URL  = 'https://pyeuyaeatfwbjnsjxgcq.supabase.co';
+        const SUPABASE_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB5ZXV5YWVhdGZ3Ympuc2p4Z2NxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc2NTA1NDksImV4cCI6MjA5MzIyNjU0OX0.rNI2djL3-3-y-_nOd5Zl6I_cKl9aBlUhfZWF2Or1Tzg';
+        const SB_HEADERS    = { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY };
+        // Table séparée pour PFE-Image
+        const LB_TABLE      = 'leaderboard_image';
+
+        /* ── State ─────────────────────────────────────────────── */
         let enigmes       = [];
         let activePool    = [];
         let currentEnigme = null;
@@ -238,96 +260,77 @@
         let playedEnigmes = [];
         let totalScore    = 0;
         let currentMode   = 'complet';
+        let answered      = false;  // ✅ FIX double validation
+
+        let lbCache      = [];
+        let lbActiveMode = 'complet';
 
         const QUICK_COUNT = 10;
 
-        /* ── Placeholders ─────────────────────────────────────── */
+        /* ── Placeholders ──────────────────────────────────────── */
         const placeholderMessages = [
-            "C'est évidemment le PFE de...",
-            "Ah, plutôt le PFE de...",
-            "Alors peut-être celui de...",
-            "Ah non mince, bon bah c'est...",
-            "Allez, cette fois c'est...",
-            "Bon, bah...",
-            "Hmm... Le PFE de...",
-            "Attends ! C'est...",
-            "Je dirais...",
-            "Ça doit être...",
-            "Ça DOIT être...",
-            "Je pense c'est...",
-            "...",
-            "Ça pourrait être...",
-            "MDR MAIS PAS DU TOUT"
+            "C'est évidemment le PFE de...","Ah, plutôt le PFE de...",
+            "Alors peut-être celui de...","Ah non mince, bon bah c'est...",
+            "Allez, cette fois c'est...","Bon, bah...","Hmm... Le PFE de...",
+            "Attends ! C'est...","Je dirais...","Ça doit être...","Ça DOIT être...",
+            "Je pense c'est...","...","Ça pourrait être...","MDR MAIS PAS DU TOUT"
         ];
         function updatePlaceholder() {
             const idx = attempts >= 14 ? 14 : Math.min(attempts, placeholderMessages.length - 2);
             document.getElementById('answerInput').placeholder = placeholderMessages[idx];
         }
 
-        /* ── Score ────────────────────────────────────────────── */
-        // Essais 1-5 : 5000, 4000, 3000, 2000, 1000 (-1000/essai)
-        // Essais 6-10 : 800, 600, 400, 200, 0 (-200/essai)
-        function calculateScore(attemptsUsed) {
-            if (attemptsUsed <= 5) return 5000 - (attemptsUsed - 1) * 1000;
-            return Math.max(0, 1000 - (attemptsUsed - 5) * 200);
+        /* ── Score ─────────────────────────────────────────────── */
+        function calculateScore(att) {
+            if (att <= 5) return 5000 - (att - 1) * 1000;
+            return Math.max(0, 1000 - (att - 5) * 200);
         }
-
         function updateScoreDisplay() {
             document.getElementById('scoreValue').textContent    = totalScore;
-            document.getElementById('resolvedCount').textContent = Math.max(0, playedEnigmes.length - 1);
+            const resolved = answered
+                ? playedEnigmes.length
+                : Math.max(0, playedEnigmes.length - 1);
+            document.getElementById('resolvedCount').textContent = resolved;
             document.getElementById('totalCount').textContent    = activePool.length;
         }
 
-        /* ── Helpers ──────────────────────────────────────────── */
-        function normalize(s) {
-            return s.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-        }
+        /* ── Helpers ───────────────────────────────────────────── */
+        function normalize(s) { return s.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,""); }
         function shuffle(arr) {
-            const a = [...arr];
-            for (let i = a.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [a[i], a[j]] = [a[j], a[i]];
-            }
+            const a=[...arr];
+            for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
             return a;
         }
+        function escapeHtml(str) { return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-        /* ── Image blur : se défloutise à chaque mauvaise réponse ─ */
-        const blurLevels = [12, 8, 5, 3, 1, 0]; // px de flou selon le nombre d'essais
+        /* ── Blur levels ───────────────────────────────────────── */
+        const blurLevels = [12, 8, 5, 3, 1, 0];
         function updateImageBlur() {
             const img  = document.getElementById('enigmeImage');
             const hint = document.getElementById('hintLabel');
             const blur = blurLevels[Math.min(attempts, blurLevels.length - 1)];
             img.style.filter = blur > 0 ? `blur(${blur}px) brightness(0.85)` : 'none';
-            if (blur > 0) {
-                hint.textContent = '🔍 Image floue — chaque essai améliore la netteté';
-                hint.classList.remove('clear');
-            } else {
-                hint.textContent = '✅ Image révélée !';
-                hint.classList.add('clear');
-            }
+            if (blur > 0) { hint.textContent = '🔍 Image floue — chaque essai améliore la netteté'; hint.classList.remove('clear'); }
+            else          { hint.textContent = '✅ Image révélée !'; hint.classList.add('clear'); }
         }
 
-        /* ── Mode toggle ──────────────────────────────────────── */
+        /* ── Mode ──────────────────────────────────────────────── */
         function setMode(mode) {
             if (mode === currentMode) return;
             currentMode = mode;
             document.getElementById('btnComplet').classList.toggle('active', mode === 'complet');
             document.getElementById('btnRapide').classList.toggle('active',  mode === 'rapide');
-            if (enigmes.length > 0) {
-                document.getElementById('btnComplet').textContent = `🗂 Complet (${enigmes.length})`;
-            }
+            if (enigmes.length > 0) document.getElementById('btnComplet').textContent = `🗂 Complet (${enigmes.length})`;
             startSession();
         }
+        function buildPool() { return currentMode === 'rapide' ? shuffle(enigmes).slice(0, QUICK_COUNT) : [...enigmes]; }
 
-        function buildPool() {
-            return currentMode === 'rapide' ? shuffle(enigmes).slice(0, QUICK_COUNT) : [...enigmes];
-        }
-
-        /* ── Session ──────────────────────────────────────────── */
+        /* ── Session ───────────────────────────────────────────── */
         function startSession() {
             activePool    = buildPool();
             playedEnigmes = [];
             totalScore    = 0;
+            answered      = false;
             updateScoreDisplay();
             newEnigme();
         }
@@ -335,55 +338,49 @@
         async function loadEnigmes() {
             try {
                 const r = await fetch('/api/pfe-image');
-                if (!r.ok) throw new Error(`HTTP error! status: ${r.status}`);
+                if (!r.ok) throw new Error();
                 enigmes    = await r.json();
                 allAnswers = enigmes.map(e => e.reponse);
 
-                document.getElementById('loading').style.display      = 'none';
-                document.getElementById('gameContainer').style.display = 'block';
-                document.getElementById('historyPanel').style.display  = 'block';
+                document.getElementById('loading').style.display          = 'none';
+                document.getElementById('gameContainer').style.display    = 'block';
+                document.getElementById('historyPanel').style.display     = 'block';
+                document.getElementById('leaderboardPanel').style.display = 'block';
                 document.getElementById('btnComplet').textContent = `🗂 Complet (${enigmes.length})`;
 
+                await fetchLeaderboard();
                 startSession();
-            } catch (e) {
-                console.error(e);
-                document.getElementById('loading').innerHTML = '⚠️ Erreur de chargement des énigmes';
+            } catch {
+                document.getElementById('loading').textContent = '⚠️ Erreur de chargement des énigmes';
             }
         }
 
         function newEnigme() {
             if (activePool.length === 0) return;
 
-            if (playedEnigmes.length >= activePool.length) {
-                const finalScore = totalScore;
-                const label = currentMode === 'rapide'
-                    ? `Mode Rapide (${QUICK_COUNT} énigmes)`
-                    : `Mode Complet (${enigmes.length} énigmes)`;
-                alert(`🎉 Vous avez terminé toutes les énigmes !\n${label}\n\nScore final : ${finalScore} points\n\nBravo !`);
-                startSession();
-                return;
-            }
+            // ✅ FIX dernière énigme : vérifier AVANT de piocher
+            const remaining = activePool.filter(e => !playedEnigmes.some(p => p.reponse === e.reponse));
+            if (remaining.length === 0) { showEndModal(); return; }
 
             document.body.classList.remove('victory');
             document.getElementById('victoryMessage').classList.remove('show');
 
-            const available = activePool.filter(e => !playedEnigmes.some(p => p.reponse === e.reponse));
-            currentEnigme   = available[Math.floor(Math.random() * available.length)];
+            // ✅ FIX double validation : reset
+            answered = false;
+            document.getElementById('btnValider').classList.remove('hidden');
+            document.getElementById('answerInput').disabled = false;
+
+            currentEnigme = remaining[Math.floor(Math.random() * remaining.length)];
             playedEnigmes.push(currentEnigme);
 
             attempts     = 0;
             guessHistory = [];
 
-            // Load image
-            const img = document.getElementById('enigmeImage');
+            const img         = document.getElementById('enigmeImage');
             const placeholder = document.getElementById('imagePlaceholder');
             img.style.display = 'none';
             placeholder.style.display = 'block';
-            img.onload = () => {
-                placeholder.style.display = 'none';
-                img.style.display = 'block';
-                updateImageBlur();
-            };
+            img.onload = () => { placeholder.style.display='none'; img.style.display='block'; updateImageBlur(); };
             img.src = currentEnigme.image;
 
             updateHistoryDisplay();
@@ -395,22 +392,28 @@
             document.getElementById('answerInput').focus();
         }
 
-        /* ── Answer ───────────────────────────────────────────── */
+        /* ── Answer ────────────────────────────────────────────── */
         function checkAnswer() {
+            if (answered) return; // ✅ FIX double validation
+
             const input = document.getElementById('answerInput');
             let ans = input.value.trim();
             if (!ans) return;
 
-            const typed   = normalize(ans);
-            const matches = allAnswers.filter(a => normalize(a).startsWith(typed));
-            if (matches.length >= 1) { ans = matches[0]; input.value = ans; }
+            // ✅ FIX Léa/Léane : exact en priorité
+            const typedNorm  = normalize(ans);
+            const exactMatch  = allAnswers.find(a => normalize(a) === typedNorm);
+            const prefixMatch = allAnswers.find(a => normalize(a).startsWith(typedNorm));
+            const resolved    = exactMatch || prefixMatch;
+            if (resolved) { ans = resolved; input.value = resolved; }
 
             attempts++;
             updatePlaceholder();
             document.getElementById('attemptsCounter').textContent = `Essais : ${attempts}`;
 
             if (normalize(ans) === normalize(currentEnigme.reponse)) {
-                // ✅ Correct — révèle l'image nette sans rappeler updateImageBlur
+                answered = true; // ✅ FIX double validation
+
                 const img  = document.getElementById('enigmeImage');
                 const hint = document.getElementById('hintLabel');
                 img.style.filter    = 'none';
@@ -420,15 +423,16 @@
                 const score = calculateScore(attempts);
                 totalScore += score;
                 updateScoreDisplay();
+
+                // ✅ FIX double validation : cacher bouton
+                document.getElementById('btnValider').classList.add('hidden');
+                document.getElementById('answerInput').disabled = true;
+
                 hideSuggestions();
                 showVictory(score);
             } else {
-                // ❌ Mauvaise réponse — réduit le flou d'un cran
                 updateImageBlur();
-                if (!guessHistory.includes(ans)) {
-                    guessHistory.push(ans);
-                    updateHistoryDisplay();
-                }
+                if (!guessHistory.includes(ans)) { guessHistory.push(ans); updateHistoryDisplay(); }
                 document.body.classList.add('error');
                 setTimeout(() => document.body.classList.remove('error'), 500);
                 input.value = '';
@@ -436,31 +440,39 @@
             }
         }
 
-        /* ── History ──────────────────────────────────────────── */
+        /* ── History ───────────────────────────────────────────── */
         function updateHistoryDisplay() {
             const h = document.getElementById('historyList');
             h.innerHTML = guessHistory.length === 0
                 ? '<div class="history-empty">Aucune tentative</div>'
-                : guessHistory.map(g => `<div class="history-item">${g}</div>`).join('');
+                : guessHistory.map(g => `<div class="history-item">${escapeHtml(g)}</div>`).join('');
         }
 
-        /* ── Suggestions ──────────────────────────────────────── */
+        /* ── Suggestions ───────────────────────────────────────── */
         function showSuggestions() {
+            if (answered) return;
             const input = document.getElementById('answerInput');
             const typed = normalize(input.value);
             const box   = document.getElementById('suggestionsBox');
             if (!typed) { hideSuggestions(); return; }
-            const matches = allAnswers.filter(a => normalize(a).startsWith(typed) && !guessHistory.includes(a));
+            const matches = allAnswers
+                .filter(a => normalize(a).startsWith(typed) && !guessHistory.includes(a))
+                .sort((a, b) => {
+                    const aEx = normalize(a) === typed, bEx = normalize(b) === typed;
+                    if (aEx && !bEx) return -1; if (!aEx && bEx) return 1;
+                    return a.localeCompare(b, 'fr');
+                });
             if (matches.length === 0) { hideSuggestions(); return; }
-            box.innerHTML = matches.map(a =>
-                `<div class="suggestion-item" onclick="selectSuggestion('${a.replace(/'/g, "\\'")}')">${a}</div>`
-            ).join('');
+            box.innerHTML = matches.map(a => {
+                const isExact = normalize(a) === typed;
+                return `<div class="suggestion-item${isExact?' exact':''}" onclick="selectSuggestion('${a.replace(/'/g,"\\'")}'">${escapeHtml(a)}</div>`;
+            }).join('');
             box.classList.add('show');
         }
-        function hideSuggestions()   { document.getElementById('suggestionsBox').classList.remove('show'); }
-        function selectSuggestion(a) { document.getElementById('answerInput').value = a; hideSuggestions(); document.getElementById('answerInput').focus(); }
+        function hideSuggestions() { document.getElementById('suggestionsBox').classList.remove('show'); }
+        function selectSuggestion(a) { document.getElementById('answerInput').value=a; hideSuggestions(); document.getElementById('answerInput').focus(); }
 
-        /* ── Victory ──────────────────────────────────────────── */
+        /* ── Victory ───────────────────────────────────────────── */
         function showVictory(score) {
             document.body.classList.add('victory');
             document.getElementById('victoryText').textContent     = `Bravo ! C'était bien le PFE de ${currentEnigme.reponse}`;
@@ -468,10 +480,110 @@
             document.getElementById('victoryMessage').classList.add('show');
         }
 
-        /* ── Events ───────────────────────────────────────────── */
-        document.getElementById('answerInput').addEventListener('input',    showSuggestions);
-        document.getElementById('answerInput').addEventListener('keypress', e => { if (e.key === 'Enter') checkAnswer(); });
-        document.addEventListener('click', e => { if (!e.target.closest('.input-container')) hideSuggestions(); });
+        /* ── Supabase leaderboard ──────────────────────────────── */
+        async function fetchLeaderboard(silent = false) {
+            if (!silent) setLbStatus('Chargement...');
+            try {
+                const res = await fetch(`${SUPABASE_URL}/rest/v1/${LB_TABLE}?select=*&order=score.desc&limit=200`, { headers: SB_HEADERS });
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+                lbCache = await res.json();
+                renderLeaderboard(lbActiveMode);
+                setLbStatus('');
+            } catch(err) { console.error(err); setLbStatus('⚠️ Impossible de charger le classement'); }
+        }
+        async function postScore(name, score, mode) {
+            const date = new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'2-digit'});
+            const res = await fetch(`${SUPABASE_URL}/rest/v1/${LB_TABLE}`, {
+                method:'POST', headers:{...SB_HEADERS,'Content-Type':'application/json'},
+                body: JSON.stringify({name,score,mode,date})
+            });
+            if (!res.ok) throw new Error('Erreur serveur');
+        }
+        async function refreshLeaderboard() {
+            const btn = document.getElementById('refreshBtn');
+            btn.classList.add('spinning'); await fetchLeaderboard(); btn.classList.remove('spinning');
+        }
+
+        /* ── Leaderboard render ────────────────────────────────── */
+        function renderLeaderboard(mode) {
+            lbActiveMode = mode;
+            document.getElementById('lbTabComplet').classList.toggle('active', mode==='complet');
+            document.getElementById('lbTabRapide').classList.toggle('active',  mode==='rapide');
+            const query    = normalize(document.getElementById('lbSearch').value);
+            const modeData = lbCache.filter(e=>e.mode===mode).sort((a,b)=>b.score-a.score);
+            renderPlayerCard(query, modeData);
+            renderTable(query, modeData);
+        }
+        function showLeaderboard(mode) { renderLeaderboard(mode); }
+        function renderTable(query, modeData) {
+            const tbody = document.getElementById('leaderboardBody');
+            if (modeData.length===0){ tbody.innerHTML='<tr><td colspan="4" class="lb-empty">Aucun score enregistré</td></tr>'; return; }
+            const top=modeData.slice(0,10);
+            const matchIdx=query?modeData.findIndex(e=>normalize(e.name).includes(query)):-1;
+            if (query && matchIdx===-1) { tbody.innerHTML=top.map((e,i)=>rowHtml(e,i,false)).join('')+`<tr><td colspan="4" class="lb-no-match">« ${escapeHtml(document.getElementById('lbSearch').value)} » introuvable</td></tr>`; return; }
+            const extended=matchIdx>=10?modeData.slice(0,matchIdx+1):top;
+            tbody.innerHTML=extended.map((e,i)=>rowHtml(e,i,query&&normalize(e.name).includes(query))).join('');
+        }
+        function rowHtml(entry,i,highlight) {
+            const rankClass=i<3?`lb-rank lb-rank-${i+1}`:'lb-rank';
+            const medal=i===0?'🥇':i===1?'🥈':i===2?'🥉':`${i+1}`;
+            return `<tr class="${highlight?'highlighted':''}"><td class="${rankClass}">${medal}</td><td>${escapeHtml(entry.name)}</td><td class="lb-score">${entry.score}</td><td class="lb-date">${entry.date||''}</td></tr>`;
+        }
+        function renderPlayerCard(query, modeData) {
+            const card=document.getElementById('playerCard');
+            if (!query){card.classList.remove('show');return;}
+            const matches=modeData.map((e,i)=>({...e,rank:i+1})).filter(e=>normalize(e.name).includes(query));
+            if (matches.length===0){card.classList.remove('show');return;}
+            const grouped={};
+            matches.forEach(e=>{const k=normalize(e.name);if(!grouped[k])grouped[k]={name:e.name,entries:[]};grouped[k].entries.push(e);});
+            card.innerHTML=Object.values(grouped).map(g=>{
+                const best=g.entries[0],total=g.entries.reduce((s,e)=>s+e.score,0),games=g.entries.length;
+                return `<div class="lb-player-card-name">👤 ${escapeHtml(best.name)}</div><div class="lb-player-stats"><span class="lb-stat-chip gold">🏅 Rang #${best.rank}</span><span class="lb-stat-chip green">⭐ Meilleur : ${best.score} pts</span><span class="lb-stat-chip">🎮 ${games} partie${games>1?'s':''}</span>${games>1?`<span class="lb-stat-chip">📊 Total : ${total} pts</span>`:''}</div>`;
+            }).join('<hr style="border:none;border-top:1px solid #e9ecef;margin:10px 0">');
+            card.classList.add('show');
+        }
+        function setLbStatus(msg){document.getElementById('lbStatus').textContent=msg;}
+
+        /* ── Search ────────────────────────────────────────────── */
+        function onSearchInput(){const v=document.getElementById('lbSearch').value;document.getElementById('lbClearBtn').classList.toggle('visible',v.length>0);renderLeaderboard(lbActiveMode);}
+        function clearSearch(){document.getElementById('lbSearch').value='';document.getElementById('lbClearBtn').classList.remove('visible');document.getElementById('playerCard').classList.remove('show');renderLeaderboard(lbActiveMode);}
+
+        /* ── End modal ─────────────────────────────────────────── */
+        function showEndModal() {
+            document.getElementById('modalScore').textContent     = `${totalScore} pts`;
+            document.getElementById('modalMode').textContent      = currentMode==='rapide'?`⚡ Mode Rapide — ${QUICK_COUNT} énigmes`:`🖼 Mode Complet — ${enigmes.length} énigmes`;
+            document.getElementById('playerNameInput').value      = '';
+            document.getElementById('modalSaveStatus').textContent = '';
+            document.getElementById('modalSaveStatus').className  = 'modal-save-status';
+            document.getElementById('btnSave').disabled           = false;
+            document.getElementById('btnSave').textContent        = '💾 Sauvegarder';
+            document.getElementById('endModal').classList.add('show');
+            setTimeout(()=>document.getElementById('playerNameInput').focus(),100);
+        }
+        async function saveScore() {
+            const name=document.getElementById('playerNameInput').value.trim();
+            const btn=document.getElementById('btnSave'),status=document.getElementById('modalSaveStatus');
+            if (!name){status.textContent='Entre ton prénom pour continuer.';status.className='modal-save-status error';document.getElementById('playerNameInput').focus();return;}
+            btn.disabled=true;btn.textContent='⏳ Sauvegarde...';status.textContent='';
+            try {
+                await postScore(name,totalScore,currentMode);
+                status.textContent='✅ Score sauvegardé !';status.className='modal-save-status success';
+                await fetchLeaderboard(true);
+                showLeaderboard(currentMode);
+                document.getElementById('lbSearch').value=name;
+                document.getElementById('lbClearBtn').classList.add('visible');
+                renderLeaderboard(currentMode);
+                setTimeout(closeModal,1000);
+            } catch(err){status.textContent='⚠️ '+err.message;status.className='modal-save-status error';btn.disabled=false;btn.textContent='💾 Sauvegarder';}
+        }
+        function skipScore(){closeModal();}
+        function closeModal(){document.getElementById('endModal').classList.remove('show');startSession();}
+
+        /* ── Events ────────────────────────────────────────────── */
+        document.getElementById('answerInput').addEventListener('input', showSuggestions);
+        document.getElementById('answerInput').addEventListener('keypress', e=>{if(e.key==='Enter')checkAnswer();});
+        document.getElementById('playerNameInput').addEventListener('keypress', e=>{if(e.key==='Enter')saveScore();});
+        document.addEventListener('click', e=>{if(!e.target.closest('.input-container'))hideSuggestions();});
 
         loadEnigmes();
     </script>
